@@ -39,8 +39,7 @@
     .slide.active { opacity:1; }
     .slide img { width:100%; height:100%; object-fit:cover; display:block; }
     .slide-caption {
-      position:absolute; bottom:0; left:0; right:0;
-      padding:30px 13px 9px;
+      position:absolute; bottom:0; left:0; right:0; padding:30px 13px 9px;
       background:linear-gradient(transparent,rgba(0,0,0,.62));
       color:#fff; font-size:clamp(7px,1.8vw,10px);
       letter-spacing:1.5px; text-transform:uppercase; font-weight:500; z-index:2;
@@ -48,8 +47,7 @@
     .slide-counter {
       position:absolute; top:9px; left:11px; z-index:3;
       font-family:'Share Tech Mono',monospace; font-size:clamp(9px,2vw,11px);
-      color:rgba(255,255,255,.8); letter-spacing:1px;
-      text-shadow:0 1px 4px rgba(0,0,0,.5);
+      color:rgba(255,255,255,.8); letter-spacing:1px; text-shadow:0 1px 4px rgba(0,0,0,.5);
     }
     .slide-dots {
       position:absolute; top:9px; right:10px; z-index:3;
@@ -57,14 +55,12 @@
     }
     .slide-dot {
       width:5px; height:5px; border-radius:50%;
-      background:rgba(255,255,255,.35); border:none; padding:0; cursor:pointer;
-      transition:background .2s;
+      background:rgba(255,255,255,.35); border:none; padding:0; cursor:pointer; transition:background .2s;
     }
     .slide-dot.active { background:rgba(255,255,255,.95); }
     .slide-progress {
       position:absolute; bottom:0; left:0; height:2px;
-      background:rgba(255,255,255,.55); width:0%; z-index:4;
-      transition:width 12s linear;
+      background:rgba(255,255,255,.55); width:0%; z-index:4; transition:width 12s linear;
     }
     .slide-progress.running { width:100%; }
 
@@ -157,8 +153,7 @@
     .swap-btn {
       display:flex; align-items:center; justify-content:center;
       background:var(--surface2); border:1.5px solid var(--border); border-radius:50%;
-      color:var(--muted); cursor:pointer;
-      width:clamp(28px,7vw,32px); height:clamp(28px,7vw,32px);
+      color:var(--muted); cursor:pointer; width:clamp(28px,7vw,32px); height:clamp(28px,7vw,32px);
       font-size:14px; transition:all .25s; flex-shrink:0;
     }
     .swap-btn:hover { background:var(--green-pale); border-color:var(--green-light); color:var(--green); transform:rotate(180deg); }
@@ -183,11 +178,120 @@
     .convert-btn:hover { background:var(--green-light); transform:translateY(-1px); box-shadow:0 4px 14px rgba(45,106,79,.25); }
     .convert-btn:active { transform:translateY(0); }
     .rate-info { display:flex; justify-content:space-between; font-size:clamp(7px,1.5vw,9px); color:var(--muted); padding:0 2px; }
+
+    /* ── Contact Form ── */
+    .form-section {
+      border-top:1px solid var(--border);
+    }
+    .form-header {
+      padding:clamp(9px,2.5vw,12px) clamp(11px,3.5vw,18px);
+      background:linear-gradient(135deg,#f7f3ec,#faf7f2);
+      border-bottom:1px solid var(--border);
+      display:flex; align-items:center; gap:10px;
+    }
+    .form-header-icon {
+      width:28px; height:28px; border-radius:8px;
+      background:var(--green); display:flex; align-items:center; justify-content:center;
+      font-size:13px; flex-shrink:0;
+    }
+    .form-header-text { display:flex; flex-direction:column; gap:1px; }
+    .form-title {
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(14px,3.5vw,17px); font-weight:700; color:var(--text); line-height:1.1;
+    }
+    .form-subtitle { font-size:clamp(8px,1.8vw,10px); color:var(--muted); }
+
+    .form-body { padding:clamp(12px,3vw,18px) clamp(11px,3.5vw,18px); display:flex; flex-direction:column; gap:12px; }
+
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    @media(max-width:360px) { .form-row { grid-template-columns:1fr; } }
+
+    .form-field { display:flex; flex-direction:column; gap:5px; }
+    .form-field.full { grid-column:1/-1; }
+
+    .form-field label {
+      font-size:clamp(7px,1.5vw,9px); letter-spacing:2px;
+      text-transform:uppercase; color:var(--muted); font-weight:500;
+    }
+    .form-field input {
+      background:var(--surface2); border:1.5px solid var(--border); border-radius:8px;
+      color:var(--text); font-family:'Epilogue',sans-serif;
+      font-size:clamp(12px,3vw,14px); font-weight:400;
+      padding:clamp(8px,2vw,10px) clamp(10px,2.5vw,13px);
+      outline:none; transition:border-color .2s,box-shadow .2s; width:100%;
+    }
+    .form-field input:focus {
+      border-color:var(--green-light);
+      box-shadow:0 0 0 3px rgba(64,145,108,.12); background:#fff;
+    }
+    .form-field input::placeholder { color:#bbb3a0; }
+
+    .form-actions { display:flex; align-items:center; gap:10px; }
+
+    .save-btn {
+      background:var(--green); border:none; border-radius:8px; color:#fff;
+      font-family:'Epilogue',sans-serif; font-size:clamp(9px,2vw,11px); font-weight:500;
+      letter-spacing:1.5px; text-transform:uppercase;
+      padding:clamp(9px,2.5vw,11px) clamp(16px,4vw,22px);
+      cursor:pointer; transition:all .2s; display:flex; align-items:center; gap:7px;
+    }
+    .save-btn:hover { background:var(--green-light); transform:translateY(-1px); box-shadow:0 4px 14px rgba(45,106,79,.25); }
+    .save-btn:active { transform:translateY(0); }
+    .save-btn:disabled { background:var(--muted); cursor:not-allowed; transform:none; box-shadow:none; }
+
+    .form-status {
+      font-size:clamp(9px,2vw,11px); font-weight:500;
+      display:none; align-items:center; gap:6px; flex:1;
+    }
+    .form-status.success { display:flex; color:var(--green); }
+    .form-status.error   { display:flex; color:#c0392b; }
+
+    /* Config notice */
+    .config-notice {
+      margin:0 clamp(11px,3.5vw,18px) clamp(10px,3vw,14px);
+      background:#fff8e6; border:1.5px solid #f0d070; border-radius:8px;
+      padding:10px 13px; font-size:clamp(9px,2vw,11px); line-height:1.6; color:#7a5c00;
+    }
+    .config-notice strong { display:block; margin-bottom:3px; font-size:clamp(10px,2.2vw,12px); }
+    .config-notice code {
+      background:rgba(0,0,0,.06); border-radius:4px;
+      padding:1px 5px; font-family:'Share Tech Mono',monospace; font-size:0.9em;
+    }
+    .config-notice.hidden { display:none; }
+
+    /* Saved entries table */
+    .entries-section { border-top:1px solid var(--border); }
+    .entries-header {
+      padding:clamp(8px,2vw,11px) clamp(11px,3.5vw,18px);
+      background:var(--surface2); border-bottom:1px solid var(--border);
+      display:flex; align-items:center; justify-content:space-between;
+    }
+    .entries-title { font-size:clamp(8px,1.8vw,10px); letter-spacing:2px; text-transform:uppercase; color:var(--muted); font-weight:500; }
+    .entries-count { font-family:'Share Tech Mono',monospace; font-size:clamp(9px,2vw,11px); color:var(--green); }
+    .entries-table-wrap { overflow-x:auto; }
+    table {
+      width:100%; border-collapse:collapse;
+      font-size:clamp(9px,2vw,12px);
+    }
+    thead tr { background:var(--surface2); }
+    th {
+      padding:7px clamp(8px,2.5vw,14px); text-align:left;
+      font-size:clamp(7px,1.5vw,9px); letter-spacing:1.5px;
+      text-transform:uppercase; color:var(--muted); font-weight:500;
+      border-bottom:1px solid var(--border);
+    }
+    td {
+      padding:8px clamp(8px,2.5vw,14px); border-bottom:1px solid var(--border);
+      color:var(--text); font-weight:400;
+    }
+    tr:last-child td { border-bottom:none; }
+    tr:hover td { background:var(--surface2); }
+    .entries-empty { padding:16px clamp(11px,3.5vw,18px); font-size:clamp(9px,2vw,11px); color:var(--muted); text-align:center; }
+
     .footer {
-      padding:clamp(7px,2vw,9px) clamp(11px,3.5vw,18px);
-      border-top:1px solid var(--border); background:var(--surface2);
+      padding:clamp(7px,2vw,9px) clamp(11px,3.5vw,18px); border-top:1px solid var(--border);
       font-size:clamp(7px,1.5vw,9px); color:var(--muted);
-      display:flex; justify-content:space-between; flex-wrap:wrap; gap:4px;
+      display:flex; justify-content:space-between; background:var(--surface2); flex-wrap:wrap; gap:4px;
     }
     @keyframes pop { 0%{transform:scale(1)} 50%{transform:scale(1.03)} 100%{transform:scale(1)} }
     .pop { animation:pop .3s ease; }
@@ -196,18 +300,20 @@
 <body>
 <div class="card">
 
+  <!-- Slideshow -->
   <div class="slideshow" id="slideshow">
     <div class="slide-counter" id="slideCounter">01 / 100</div>
-    <div class="slide-dots"    id="slideDots"></div>
+    <div class="slide-dots" id="slideDots"></div>
     <div class="slide-progress" id="slideProgress"></div>
   </div>
 
+  <!-- Dual Clock -->
   <div class="clock-bar">
     <div class="clock-pane">
       <div class="col-label">World Clock</div>
       <div class="clock-city-name" id="clock1CityName">Berlin</div>
       <div class="clock-time" id="clock1Time">--:--<span class="clock-sec">:--</span></div>
-      <div class="clock-date"  id="clock1Date">--</div>
+      <div class="clock-date" id="clock1Date">--</div>
       <select class="clock-city-select" id="clock1City" onchange="updateClock(1)">
         <option value="Berlin|Europe/Berlin" selected>Berlin</option>
         <option value="UTC|UTC">UTC</option>
@@ -235,7 +341,7 @@
       <div class="col-label">World Clock</div>
       <div class="clock-city-name" id="clock2CityName">Los Angeles</div>
       <div class="clock-time" id="clock2Time">--:--<span class="clock-sec">:--</span></div>
-      <div class="clock-date"  id="clock2Date">--</div>
+      <div class="clock-date" id="clock2Date">--</div>
       <select class="clock-city-select" id="clock2City" onchange="updateClock(2)">
         <option value="Berlin|Europe/Berlin">Berlin</option>
         <option value="UTC|UTC">UTC</option>
@@ -261,11 +367,12 @@
     </div>
   </div>
 
+  <!-- Weather -->
   <div class="weather-bar">
     <div class="weather-main">
       <div class="weather-icon" id="wIcon">🌤️</div>
       <div class="weather-temps">
-        <div class="weather-now"  id="wTemp">--°</div>
+        <div class="weather-now" id="wTemp">--°</div>
         <div class="weather-cond" id="wCond">Loading...</div>
         <div class="weather-high" id="wHigh">High: --</div>
       </div>
@@ -308,6 +415,7 @@
     </div>
   </div>
 
+  <!-- Currency Header -->
   <div class="header">
     <div>
       <div class="hlabel">Exchange Rate</div>
@@ -315,6 +423,7 @@
     </div>
   </div>
 
+  <!-- Converter -->
   <div class="body">
     <div class="field">
       <div class="field-label">Amount & From</div>
@@ -343,6 +452,97 @@
     </div>
   </div>
 
+  <!-- ── Contact Form ── -->
+  <div class="form-section">
+    <div class="form-header">
+      <div class="form-header-icon">👤</div>
+      <div class="form-header-text">
+        <div class="form-title">Save a Contact</div>
+        <div class="form-subtitle">Stored in your Supabase database</div>
+      </div>
+    </div>
+
+    <!-- Setup instructions shown until keys are entered -->
+    <div class="config-notice" id="configNotice">
+      <strong>⚙️ One-time Supabase setup — takes 5 minutes</strong>
+      1. Go to <strong>supabase.com</strong> → create a free account → New Project<br>
+      2. In your project go to <strong>SQL Editor</strong> and run this query:<br>
+      <code>CREATE TABLE contacts (id bigint generated always as identity primary key, first_name text, last_name text, city text, created_at timestamptz default now());</code><br>
+      3. Go to <strong>Project Settings → API</strong> and copy your <strong>Project URL</strong> and <strong>anon public key</strong><br>
+      4. Paste them into the fields below, then click <strong>Connect</strong>
+    </div>
+
+    <div class="form-body">
+
+      <!-- Supabase config (hidden after connected) -->
+      <div id="supabaseConfig">
+        <div class="form-row">
+          <div class="form-field full">
+            <label>Supabase Project URL</label>
+            <input type="text" id="sbUrl" placeholder="https://xxxxxxxxxxxx.supabase.co">
+          </div>
+          <div class="form-field full">
+            <label>Supabase Anon Key</label>
+            <input type="text" id="sbKey" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...">
+          </div>
+        </div>
+        <div class="form-actions" style="margin-top:4px">
+          <button class="save-btn" onclick="connectSupabase()">🔗 Connect</button>
+          <div class="form-status" id="connectStatus"></div>
+        </div>
+      </div>
+
+      <!-- Contact fields (shown after connected) -->
+      <div id="contactForm" style="display:none; display:none">
+        <div class="form-row">
+          <div class="form-field">
+            <label>First Name</label>
+            <input type="text" id="firstName" placeholder="Jane">
+          </div>
+          <div class="form-field">
+            <label>Last Name</label>
+            <input type="text" id="lastName" placeholder="Smith">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field full">
+            <label>City</label>
+            <input type="text" id="city" placeholder="Cambria, CA">
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="save-btn" id="saveBtn" onclick="saveContact()">💾 Save Contact</button>
+          <div class="form-status" id="saveStatus"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Saved entries table -->
+  <div class="entries-section" id="entriesSection" style="display:none">
+    <div class="entries-header">
+      <span class="entries-title">Saved Contacts</span>
+      <span class="entries-count" id="entriesCount">0 entries</span>
+    </div>
+    <div class="entries-table-wrap">
+      <table id="entriesTable">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>City</th>
+            <th>Saved</th>
+          </tr>
+        </thead>
+        <tbody id="entriesBody">
+          <tr><td colspan="5" class="entries-empty">No contacts yet</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
   <div class="footer">
     <span>Exchange rates · Mar 2026</span>
     <span id="updateTime">—</span>
@@ -350,190 +550,262 @@
 </div>
 
 <script>
-/* ═══════════════════════════════════════════════════
-   SLIDESHOW
-   Uses picsum.photos/seed/{word}/800/500
-   — Fastly CDN, always online, no auth, CORS-safe.
-   Each seed word is a California coast location/topic
-   so images stay nature/coastal in character.
-═══════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════
+   SLIDESHOW — picsum.photos seed URLs
+═══════════════════════════════════════════ */
 const SLIDES = [
-  { seed:'bigsur1',      cap:'Big Sur · California Coast' },
-  { seed:'bigsur2',      cap:'Big Sur Cliffs · California' },
-  { seed:'bigsur3',      cap:'Sunset at Big Sur' },
-  { seed:'bigsur4',      cap:'Big Sur Morning Mist' },
-  { seed:'bixbybridge',  cap:'Bixby Creek Bridge · Big Sur' },
-  { seed:'mcwayfalls',   cap:'McWay Falls · Big Sur' },
-  { seed:'pfeifferbeach',cap:'Pfeiffer Beach · Big Sur' },
-  { seed:'pointsur',     cap:'Point Sur Lighthouse' },
-  { seed:'highway1a',    cap:'Pacific Coast Highway · CA' },
-  { seed:'highway1b',    cap:'Highway 1 at Sunset' },
-  { seed:'morrorock1',   cap:'Morro Rock · Morro Bay' },
-  { seed:'morrorock2',   cap:'Morro Rock at Dawn' },
-  { seed:'morrobay1',    cap:'Morro Bay Harbor' },
-  { seed:'morrobay2',    cap:'Morro Bay Estuary' },
-  { seed:'morrobay3',    cap:'Morro Bay Sunset' },
-  { seed:'montanaoro1',  cap:'Montana de Oro State Park' },
-  { seed:'montanaoro2',  cap:'Bluffs · Montana de Oro' },
-  { seed:'cayucos1',     cap:'Cayucos Beach · SLO County' },
-  { seed:'cayucos2',     cap:'Cayucos Pier at Sunset' },
-  { seed:'avilabeach',   cap:'Avila Beach · San Luis Obispo' },
-  { seed:'pismobeach1',  cap:'Pismo Beach · Central Coast' },
-  { seed:'pismobeach2',  cap:'Pismo Beach Dunes' },
-  { seed:'shellbeach',   cap:'Shell Beach · California' },
-  { seed:'sansimeon1',   cap:'San Simeon · Central Coast' },
-  { seed:'sansimeon2',   cap:'San Simeon Pier' },
-  { seed:'hearstcastle', cap:'Hearst Castle · San Simeon' },
-  { seed:'piedrasblancas',cap:'Piedras Blancas Lighthouse' },
-  { seed:'elephantseals',cap:'Elephant Seals · San Simeon' },
-  { seed:'moonstone1',   cap:'Moonstone Beach · Cambria' },
-  { seed:'moonstone2',   cap:'Moonstone Beach Sunset' },
-  { seed:'cambria1',     cap:'Cambria · Central Coast' },
-  { seed:'cambria2',     cap:'Cambria Pines · California' },
-  { seed:'pasorobles1',  cap:'Paso Robles Vineyard' },
-  { seed:'pasorobles2',  cap:'Wine Country · Central Coast' },
-  { seed:'carmelbeach1', cap:'Carmel-by-the-Sea Beach' },
-  { seed:'carmelbeach2', cap:'Carmel Beach at Sunset' },
-  { seed:'pointlobos1',  cap:'Point Lobos State Park' },
-  { seed:'pointlobos2',  cap:'Point Lobos · Carmel' },
-  { seed:'17miledrive',  cap:'17-Mile Drive · Pebble Beach' },
-  { seed:'lonecypress',  cap:'Lone Cypress · Pebble Beach' },
-  { seed:'monterey1',    cap:'Monterey Bay · California' },
-  { seed:'monterey2',    cap:'Monterey Harbor at Dusk' },
-  { seed:'monterey3',    cap:'Fisherman\'s Wharf · Monterey' },
-  { seed:'pacificgrove1',cap:'Pacific Grove Tidepools' },
-  { seed:'pacificgrove2',cap:'Asilomar Beach · Pacific Grove' },
-  { seed:'seaotter',     cap:'Sea Otter · Monterey Bay' },
-  { seed:'garrapata1',   cap:'Garrapata State Park · Carmel' },
-  { seed:'garrapata2',   cap:'Garrapata Beach · Big Sur' },
-  { seed:'santacruz1',   cap:'Natural Bridges · Santa Cruz' },
-  { seed:'santacruz2',   cap:'Santa Cruz Coastline' },
-  { seed:'santacruz3',   cap:'Santa Cruz Beach' },
-  { seed:'pigeonpoint',  cap:'Pigeon Point Lighthouse' },
-  { seed:'davenport',    cap:'Davenport Beach · Santa Cruz' },
-  { seed:'anonuevo',     cap:'Año Nuevo State Park' },
-  { seed:'calcoast1',    cap:'Pacific Ocean Sunset · CA' },
-  { seed:'calcoast2',    cap:'California Coastal Sunset' },
-  { seed:'calcoast3',    cap:'Golden Hour · Pacific Coast' },
-  { seed:'calcoast4',    cap:'Dramatic Sunset · California' },
-  { seed:'calcoast5',    cap:'Sea Cliffs · Central CA' },
-  { seed:'calcoast6',    cap:'Rocky Shore · California' },
-  { seed:'calcoast7',    cap:'California Tide Pools' },
-  { seed:'calcoast8',    cap:'Pacific Fog · Central Coast' },
-  { seed:'calcoast9',    cap:'Morning Mist · Big Sur' },
-  { seed:'calcoast10',   cap:'Coastal Redwoods · Big Sur' },
-  { seed:'calcoast11',   cap:'Sea Stacks · Central Coast' },
-  { seed:'calcoast12',   cap:'Orange Skies · Central Coast' },
-  { seed:'calcoast13',   cap:'Fire Sunset · California' },
-  { seed:'calcoast14',   cap:'Purple Sunset · Big Sur' },
-  { seed:'calcoast15',   cap:'Pink Sunrise · Pacific Coast' },
-  { seed:'calcoast16',   cap:'Silhouette · CA Coastline' },
-  { seed:'calcoast17',   cap:'Long Exposure · Big Sur' },
-  { seed:'calcoast18',   cap:'Storm Waves · Central Coast' },
-  { seed:'calcoast19',   cap:'Aerial · CA Coastline' },
-  { seed:'calcoast20',   cap:'Drone View · Big Sur' },
-  { seed:'calcoast21',   cap:'Coastal Bluffs · California' },
-  { seed:'calcoast22',   cap:'Rugged Pacific · Central Coast' },
-  { seed:'calcoast23',   cap:'Turquoise Waters · CA Coast' },
-  { seed:'calcoast24',   cap:'Pacific Coast Drive' },
-  { seed:'calcoast25',   cap:'Coastal Trail · California' },
-  { seed:'wildlife1',    cap:'Pelicans · Morro Bay' },
-  { seed:'wildlife2',    cap:'Harbor Seals · Central Coast' },
-  { seed:'wildlife3',    cap:'California Sea Lions' },
-  { seed:'wildlife4',    cap:'Monarch Butterflies · Pismo' },
-  { seed:'wildlife5',    cap:'Gray Whales · CA Coast' },
-  { seed:'wildlife6',    cap:'Kelp Forest · Monterey Bay' },
-  { seed:'nature1',      cap:'Wildflowers · Central Coast Hills' },
-  { seed:'nature2',      cap:'Lupine Blooms · Carrizo Plain' },
-  { seed:'nature3',      cap:'Spring Hills · SLO County' },
-  { seed:'nature4',      cap:'California Oaks · Paso Robles' },
-  { seed:'nature5',      cap:'Oak Woodland · SLO County' },
-  { seed:'night1',       cap:'Starry Night · Big Sur' },
-  { seed:'night2',       cap:'Milky Way · Big Sur Coast' },
-  { seed:'night3',       cap:'Full Moon · Morro Bay' },
-  { seed:'beach1',       cap:'Driftwood · Moonstone Beach' },
-  { seed:'beach2',       cap:'Beach Campfire · Central Coast' },
-  { seed:'beach3',       cap:'Surfer · Central Coast' },
-  { seed:'beach4',       cap:'Kayaking · CA Coast' },
-  { seed:'beach5',       cap:'Fishing Pier · Avila Beach' },
-  { seed:'beach6',       cap:'Sand Dunes · Oceano' },
-  { seed:'estero',       cap:'Estero Bluffs · Cayucos' },
+  {seed:'bigsur1',cap:'Big Sur · California Coast'},{seed:'bigsur2',cap:'Big Sur Cliffs · California'},
+  {seed:'bigsur3',cap:'Sunset at Big Sur'},{seed:'bigsur4',cap:'Big Sur Morning Mist'},
+  {seed:'bixbybridge',cap:'Bixby Creek Bridge · Big Sur'},{seed:'mcwayfalls',cap:'McWay Falls · Big Sur'},
+  {seed:'pfeifferbeach',cap:'Pfeiffer Beach · Big Sur'},{seed:'pointsur',cap:'Point Sur Lighthouse'},
+  {seed:'highway1a',cap:'Pacific Coast Highway · CA'},{seed:'highway1b',cap:'Highway 1 at Sunset'},
+  {seed:'morrorock1',cap:'Morro Rock · Morro Bay'},{seed:'morrorock2',cap:'Morro Rock at Dawn'},
+  {seed:'morrobay1',cap:'Morro Bay Harbor'},{seed:'morrobay2',cap:'Morro Bay Estuary'},
+  {seed:'morrobay3',cap:'Morro Bay Sunset'},{seed:'montanaoro1',cap:'Montana de Oro State Park'},
+  {seed:'montanaoro2',cap:'Bluffs · Montana de Oro'},{seed:'cayucos1',cap:'Cayucos Beach · SLO County'},
+  {seed:'cayucos2',cap:'Cayucos Pier at Sunset'},{seed:'avilabeach',cap:'Avila Beach · San Luis Obispo'},
+  {seed:'pismobeach1',cap:'Pismo Beach · Central Coast'},{seed:'pismobeach2',cap:'Pismo Beach Dunes'},
+  {seed:'shellbeach',cap:'Shell Beach · California'},{seed:'sansimeon1',cap:'San Simeon · Central Coast'},
+  {seed:'sansimeon2',cap:'San Simeon Pier'},{seed:'hearstcastle',cap:'Hearst Castle · San Simeon'},
+  {seed:'piedrasblancas',cap:'Piedras Blancas Lighthouse'},{seed:'elephantseals',cap:'Elephant Seals · San Simeon'},
+  {seed:'moonstone1',cap:'Moonstone Beach · Cambria'},{seed:'moonstone2',cap:'Moonstone Beach Sunset'},
+  {seed:'cambria1',cap:'Cambria · Central Coast'},{seed:'cambria2',cap:'Cambria Pines · California'},
+  {seed:'pasorobles1',cap:'Paso Robles Vineyard'},{seed:'pasorobles2',cap:'Wine Country · Central Coast'},
+  {seed:'carmelbeach1',cap:'Carmel-by-the-Sea Beach'},{seed:'carmelbeach2',cap:'Carmel Beach at Sunset'},
+  {seed:'pointlobos1',cap:'Point Lobos State Park'},{seed:'pointlobos2',cap:'Point Lobos · Carmel'},
+  {seed:'17miledrive',cap:'17-Mile Drive · Pebble Beach'},{seed:'lonecypress',cap:'Lone Cypress · Pebble Beach'},
+  {seed:'monterey1',cap:'Monterey Bay · California'},{seed:'monterey2',cap:'Monterey Harbor at Dusk'},
+  {seed:'monterey3',cap:'Fisherman\'s Wharf · Monterey'},{seed:'pacificgrove1',cap:'Pacific Grove Tidepools'},
+  {seed:'pacificgrove2',cap:'Asilomar Beach · Pacific Grove'},{seed:'seaotter',cap:'Sea Otter · Monterey Bay'},
+  {seed:'garrapata1',cap:'Garrapata State Park'},{seed:'garrapata2',cap:'Garrapata Beach · Big Sur'},
+  {seed:'santacruz1',cap:'Natural Bridges · Santa Cruz'},{seed:'santacruz2',cap:'Santa Cruz Coastline'},
+  {seed:'santacruz3',cap:'Santa Cruz Beach'},{seed:'pigeonpoint',cap:'Pigeon Point Lighthouse'},
+  {seed:'davenport',cap:'Davenport Beach · Santa Cruz'},{seed:'anonuevo',cap:'Año Nuevo State Park'},
+  {seed:'calcoast1',cap:'Pacific Ocean Sunset · CA'},{seed:'calcoast2',cap:'California Coastal Sunset'},
+  {seed:'calcoast3',cap:'Golden Hour · Pacific Coast'},{seed:'calcoast4',cap:'Dramatic Sunset · California'},
+  {seed:'calcoast5',cap:'Sea Cliffs · Central CA'},{seed:'calcoast6',cap:'Rocky Shore · California'},
+  {seed:'calcoast7',cap:'California Tide Pools'},{seed:'calcoast8',cap:'Pacific Fog · Central Coast'},
+  {seed:'calcoast9',cap:'Morning Mist · Big Sur'},{seed:'calcoast10',cap:'Coastal Redwoods · Big Sur'},
+  {seed:'calcoast11',cap:'Sea Stacks · Central Coast'},{seed:'calcoast12',cap:'Orange Skies · Central Coast'},
+  {seed:'calcoast13',cap:'Fire Sunset · California'},{seed:'calcoast14',cap:'Purple Sunset · Big Sur'},
+  {seed:'calcoast15',cap:'Pink Sunrise · Pacific Coast'},{seed:'calcoast16',cap:'Silhouette · CA Coastline'},
+  {seed:'calcoast17',cap:'Long Exposure · Big Sur'},{seed:'calcoast18',cap:'Storm Waves · Central Coast'},
+  {seed:'calcoast19',cap:'Aerial · CA Coastline'},{seed:'calcoast20',cap:'Drone View · Big Sur'},
+  {seed:'calcoast21',cap:'Coastal Bluffs · California'},{seed:'calcoast22',cap:'Rugged Pacific · Central Coast'},
+  {seed:'calcoast23',cap:'Turquoise Waters · CA Coast'},{seed:'calcoast24',cap:'Pacific Coast Drive'},
+  {seed:'calcoast25',cap:'Coastal Trail · California'},{seed:'wildlife1',cap:'Pelicans · Morro Bay'},
+  {seed:'wildlife2',cap:'Harbor Seals · Central Coast'},{seed:'wildlife3',cap:'California Sea Lions'},
+  {seed:'wildlife4',cap:'Monarch Butterflies · Pismo'},{seed:'wildlife5',cap:'Gray Whales · CA Coast'},
+  {seed:'wildlife6',cap:'Kelp Forest · Monterey Bay'},{seed:'nature1',cap:'Wildflowers · Central Coast Hills'},
+  {seed:'nature2',cap:'Lupine Blooms · Carrizo Plain'},{seed:'nature3',cap:'Spring Hills · SLO County'},
+  {seed:'nature4',cap:'California Oaks · Paso Robles'},{seed:'nature5',cap:'Oak Woodland · SLO County'},
+  {seed:'night1',cap:'Starry Night · Big Sur'},{seed:'night2',cap:'Milky Way · Big Sur Coast'},
+  {seed:'night3',cap:'Full Moon · Morro Bay'},{seed:'beach1',cap:'Driftwood · Moonstone Beach'},
+  {seed:'beach2',cap:'Beach Campfire · Central Coast'},{seed:'beach3',cap:'Surfer · Central Coast'},
+  {seed:'beach4',cap:'Kayaking · CA Coast'},{seed:'beach5',cap:'Fishing Pier · Avila Beach'},
+  {seed:'beach6',cap:'Sand Dunes · Oceano'},{seed:'estero',cap:'Estero Bluffs · Cayucos'},
 ];
 
-const total = SLIDES.length;
-let currentSlide = 0;
-const slideshowEl = document.getElementById('slideshow');
-const dotsEl      = document.getElementById('slideDots');
-const progressEl  = document.getElementById('slideProgress');
-const counterEl   = document.getElementById('slideCounter');
+const total=SLIDES.length;
+let currentSlide=0;
+const slideshowEl=document.getElementById('slideshow');
+const dotsEl=document.getElementById('slideDots');
+const progressEl=document.getElementById('slideProgress');
+const counterEl=document.getElementById('slideCounter');
 
-SLIDES.forEach((s, i) => {
-  const div = document.createElement('div');
-  div.className = 'slide' + (i === 0 ? ' active' : '');
-  // picsum seed URL — guaranteed reliable, CDN-backed, no auth needed
-  const src = `https://picsum.photos/seed/${s.seed}/800/500`;
-  div.innerHTML = `
-    <img src="${src}" alt="${s.cap}" loading="${i < 4 ? 'eager' : 'lazy'}">
-    <div class="slide-caption">${s.cap}</div>`;
-  slideshowEl.insertBefore(div, dotsEl);
-
-  if (i < 10) {
-    const dot = document.createElement('button');
-    dot.className = 'slide-dot' + (i === 0 ? ' active' : '');
-    dot.setAttribute('aria-label', 'Slide ' + (i+1));
-    dot.onclick = () => goToSlide(i);
-    dotsEl.appendChild(dot);
-  }
+SLIDES.forEach((s,i)=>{
+  const div=document.createElement('div');
+  div.className='slide'+(i===0?' active':'');
+  div.innerHTML=`<img src="https://picsum.photos/seed/${s.seed}/800/500" alt="${s.cap}" loading="${i<4?'eager':'lazy'}"><div class="slide-caption">${s.cap}</div>`;
+  slideshowEl.insertBefore(div,dotsEl);
+  if(i<10){const dot=document.createElement('button');dot.className='slide-dot'+(i===0?' active':'');dot.setAttribute('aria-label','Slide '+(i+1));dot.onclick=()=>goToSlide(i);dotsEl.appendChild(dot);}
 });
 
-function goToSlide(n) {
+function goToSlide(n){
   document.querySelectorAll('.slide')[currentSlide].classList.remove('active');
   document.querySelectorAll('.slide-dot')[currentSlide]?.classList.remove('active');
-  currentSlide = ((n % total) + total) % total;
+  currentSlide=((n%total)+total)%total;
   document.querySelectorAll('.slide')[currentSlide].classList.add('active');
   document.querySelectorAll('.slide-dot')[currentSlide]?.classList.add('active');
-  counterEl.textContent = String(currentSlide+1).padStart(2,'0') + ' / ' + String(total).padStart(3,'0');
-  progressEl.style.transition = 'none';
-  progressEl.classList.remove('running');
-  progressEl.style.width = '0%';
-  void progressEl.offsetWidth;
-  progressEl.style.transition = 'width 12s linear';
-  progressEl.classList.add('running');
+  counterEl.textContent=String(currentSlide+1).padStart(2,'0')+' / '+String(total).padStart(3,'0');
+  progressEl.style.transition='none';progressEl.classList.remove('running');progressEl.style.width='0%';
+  void progressEl.offsetWidth;progressEl.style.transition='width 12s linear';progressEl.classList.add('running');
 }
 goToSlide(0);
-setInterval(() => goToSlide(currentSlide + 1), 12000);
+setInterval(()=>goToSlide(currentSlide+1),12000);
 
-/* ── Dual Clock ── */
-const clockIntervals = {};
-function updateClock(n) {
-  const [city, tz] = document.getElementById(`clock${n}City`).value.split('|');
-  document.getElementById(`clock${n}CityName`).textContent = city;
-  if (clockIntervals[n]) clearInterval(clockIntervals[n]);
-  const tick = () => {
-    const now = new Date();
-    const hm = now.toLocaleTimeString('en-GB',{timeZone:tz,hour:'2-digit',minute:'2-digit'});
-    const ss = now.toLocaleTimeString('en-GB',{timeZone:tz,second:'2-digit'});
-    const dt = now.toLocaleDateString('en-GB',{timeZone:tz,weekday:'short',day:'numeric',month:'short'});
-    document.getElementById(`clock${n}Time`).innerHTML = `${hm}<span class="clock-sec">:${ss}</span>`;
-    document.getElementById(`clock${n}Date`).textContent = dt;
-  };
-  tick(); clockIntervals[n] = setInterval(tick, 1000);
+/* ═══════════════════════════════════════════
+   SUPABASE FORM
+═══════════════════════════════════════════ */
+let SB_URL = '', SB_KEY = '';
+
+// Restore saved config from localStorage
+try {
+  const saved = JSON.parse(localStorage.getItem('sb_config') || '{}');
+  if (saved.url && saved.key) {
+    document.getElementById('sbUrl').value = saved.url;
+    document.getElementById('sbKey').value = saved.key;
+    SB_URL = saved.url; SB_KEY = saved.key;
+    showConnected();
+    loadContacts();
+  }
+} catch(e) {}
+
+async function connectSupabase() {
+  const url = document.getElementById('sbUrl').value.trim().replace(/\/$/, '');
+  const key = document.getElementById('sbKey').value.trim();
+  const status = document.getElementById('connectStatus');
+
+  if (!url || !key) {
+    showStatus(status, 'error', '⚠ Please enter both URL and key');
+    return;
+  }
+
+  status.className = 'form-status';
+  status.style.display = 'flex';
+  status.textContent = 'Testing connection...';
+
+  try {
+    const r = await fetch(`${url}/rest/v1/contacts?limit=1`, {
+      headers: { apikey: key, Authorization: `Bearer ${key}` }
+    });
+    if (!r.ok) throw new Error(`${r.status} — check your URL and key, or run the CREATE TABLE SQL`);
+
+    SB_URL = url; SB_KEY = key;
+    localStorage.setItem('sb_config', JSON.stringify({ url, key }));
+    showConnected();
+    loadContacts();
+  } catch(e) {
+    showStatus(status, 'error', '✗ ' + e.message);
+  }
 }
 
-/* ── Weather ── */
-const wCodes = {0:'Sunny',1:'Mostly clear',2:'Partly cloudy',3:'Overcast',45:'Foggy',48:'Icy fog',51:'Light drizzle',53:'Drizzle',55:'Heavy drizzle',61:'Light rain',63:'Rain',65:'Heavy rain',71:'Light snow',73:'Snow',75:'Heavy snow',80:'Showers',81:'Rain showers',82:'Heavy showers',95:'Thunderstorm',96:'Thunderstorm+hail',99:'Severe storm'};
-const wIcons = {0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',51:'🌦️',53:'🌦️',55:'🌧️',61:'🌧️',63:'🌧️',65:'🌧️',71:'🌨️',73:'❄️',75:'❄️',80:'🌦️',81:'🌧️',82:'⛈️',95:'⛈️',96:'⛈️',99:'⛈️'};
-let unit='C', lastTempC=null, lastHighC=null;
-const toF = c => (c*9/5+32).toFixed(1);
+function showConnected() {
+  document.getElementById('supabaseConfig').style.display = 'none';
+  document.getElementById('configNotice').classList.add('hidden');
+  document.getElementById('contactForm').style.display = 'block';
+  document.getElementById('entriesSection').style.display = 'block';
+}
+
+async function saveContact() {
+  const firstName = document.getElementById('firstName').value.trim();
+  const lastName  = document.getElementById('lastName').value.trim();
+  const city      = document.getElementById('city').value.trim();
+  const status    = document.getElementById('saveStatus');
+  const btn       = document.getElementById('saveBtn');
+
+  if (!firstName && !lastName && !city) {
+    showStatus(status, 'error', '⚠ Please fill in at least one field'); return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = '⏳ Saving...';
+  status.className = 'form-status'; status.style.display = 'none';
+
+  try {
+    const r = await fetch(`${SB_URL}/rest/v1/contacts`, {
+      method: 'POST',
+      headers: {
+        apikey: SB_KEY,
+        Authorization: `Bearer ${SB_KEY}`,
+        'Content-Type': 'application/json',
+        Prefer: 'return=minimal'
+      },
+      body: JSON.stringify({ first_name: firstName, last_name: lastName, city })
+    });
+
+    if (!r.ok) {
+      const err = await r.json().catch(() => ({}));
+      throw new Error(err.message || r.status);
+    }
+
+    showStatus(status, 'success', '✓ Saved!');
+    document.getElementById('firstName').value = '';
+    document.getElementById('lastName').value  = '';
+    document.getElementById('city').value      = '';
+    loadContacts();
+  } catch(e) {
+    showStatus(status, 'error', '✗ ' + e.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '💾 Save Contact';
+  }
+}
+
+async function loadContacts() {
+  try {
+    const r = await fetch(
+      `${SB_URL}/rest/v1/contacts?select=*&order=created_at.desc&limit=50`,
+      { headers: { apikey: SB_KEY, Authorization: `Bearer ${SB_KEY}` } }
+    );
+    const rows = await r.json();
+    renderTable(Array.isArray(rows) ? rows : []);
+  } catch(e) { /* silent */ }
+}
+
+function renderTable(rows) {
+  const tbody = document.getElementById('entriesBody');
+  document.getElementById('entriesCount').textContent = rows.length + ' entr' + (rows.length === 1 ? 'y' : 'ies');
+
+  if (rows.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="5" class="entries-empty">No contacts saved yet</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = rows.map((r, i) => `
+    <tr>
+      <td style="color:var(--muted);font-family:'Share Tech Mono',monospace">${String(i+1).padStart(2,'0')}</td>
+      <td>${r.first_name || '—'}</td>
+      <td>${r.last_name  || '—'}</td>
+      <td>${r.city       || '—'}</td>
+      <td style="color:var(--muted);font-size:0.9em">${new Date(r.created_at).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}</td>
+    </tr>`).join('');
+}
+
+function showStatus(el, type, msg) {
+  el.className = 'form-status ' + type;
+  el.style.display = 'flex';
+  el.textContent = msg;
+  if (type === 'success') setTimeout(() => { el.style.display='none'; }, 3000);
+}
+
+/* ═══════════════════════════════════════════
+   DUAL CLOCK
+═══════════════════════════════════════════ */
+const clockIntervals={};
+function updateClock(n){
+  const [city,tz]=document.getElementById(`clock${n}City`).value.split('|');
+  document.getElementById(`clock${n}CityName`).textContent=city;
+  if(clockIntervals[n])clearInterval(clockIntervals[n]);
+  const tick=()=>{
+    const now=new Date();
+    const hm=now.toLocaleTimeString('en-GB',{timeZone:tz,hour:'2-digit',minute:'2-digit'});
+    const ss=now.toLocaleTimeString('en-GB',{timeZone:tz,second:'2-digit'});
+    const dt=now.toLocaleDateString('en-GB',{timeZone:tz,weekday:'short',day:'numeric',month:'short'});
+    document.getElementById(`clock${n}Time`).innerHTML=`${hm}<span class="clock-sec">:${ss}</span>`;
+    document.getElementById(`clock${n}Date`).textContent=dt;
+  };
+  tick(); clockIntervals[n]=setInterval(tick,1000);
+}
+
+/* ═══════════════════════════════════════════
+   WEATHER
+═══════════════════════════════════════════ */
+const wCodes={0:'Sunny',1:'Mostly clear',2:'Partly cloudy',3:'Overcast',45:'Foggy',48:'Icy fog',51:'Light drizzle',53:'Drizzle',55:'Heavy drizzle',61:'Light rain',63:'Rain',65:'Heavy rain',71:'Light snow',73:'Snow',75:'Heavy snow',80:'Showers',81:'Rain showers',82:'Heavy showers',95:'Thunderstorm',96:'Thunderstorm+hail',99:'Severe storm'};
+const wIcons={0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',51:'🌦️',53:'🌦️',55:'🌧️',61:'🌧️',63:'🌧️',65:'🌧️',71:'🌨️',73:'❄️',75:'❄️',80:'🌦️',81:'🌧️',82:'⛈️',95:'⛈️',96:'⛈️',99:'⛈️'};
+let unit='C',lastTempC=null,lastHighC=null;
+const toF=c=>(c*9/5+32).toFixed(1);
 function setUnit(u){unit=u;document.getElementById('btnC').classList.toggle('active',u==='C');document.getElementById('btnF').classList.toggle('active',u==='F');updateTempDisplay();}
 function updateTempDisplay(){if(lastTempC===null)return;document.getElementById('wTemp').textContent=unit==='C'?`${lastTempC.toFixed(1)}°C`:`${toF(lastTempC)}°F`;document.getElementById('wHigh').textContent=unit==='C'?`High: ${lastHighC.toFixed(1)}°C`:`High: ${toF(lastHighC)}°F`;}
 async function loadWeather(){
-  const [,lat,lon]=document.getElementById('weatherCity').value.split('|');
+  const[,lat,lon]=document.getElementById('weatherCity').value.split('|');
   document.getElementById('wCond').textContent='Loading...';document.getElementById('wTemp').textContent='--°';document.getElementById('wHigh').textContent='High: --';document.getElementById('wIcon').textContent='🌤️';lastTempC=null;
   try{const r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weathercode&daily=temperature_2m_max&temperature_unit=celsius&timezone=auto&forecast_days=1`);const d=await r.json();lastTempC=d.current.temperature_2m;lastHighC=d.daily.temperature_2m_max[0];const code=d.current.weathercode;document.getElementById('wIcon').textContent=wIcons[code]||'🌤️';document.getElementById('wCond').textContent=wCodes[code]||'Clear';updateTempDisplay();}catch(e){document.getElementById('wCond').textContent='Unavailable';}
 }
 
-/* ── Currency ── */
+/* ═══════════════════════════════════════════
+   CURRENCY
+═══════════════════════════════════════════ */
 const rates={USD:1,EUR:.924,GBP:.789,JPY:149.5,CAD:1.363,AUD:1.537,CHF:.898,CNY:7.241,INR:83.12,MXN:17.15,BRL:4.97,KRW:1325,SGD:1.342,HKD:7.822,NOK:10.56,SEK:10.42,DKK:6.89,NZD:1.627,ZAR:18.63,AED:3.673,THB:35.1,TRY:30.85,PLN:3.987,CZK:22.85,HUF:356};
 const symbols={USD:'$',EUR:'€',GBP:'£',JPY:'¥',CAD:'CA$',AUD:'A$',CHF:'Fr',CNY:'¥',INR:'₹',MXN:'MX$',BRL:'R$',KRW:'₩',SGD:'S$',HKD:'HK$',NOK:'kr',SEK:'kr',DKK:'kr',NZD:'NZ$',ZAR:'R',AED:'د.إ',THB:'฿',TRY:'₺',PLN:'zł',CZK:'Kč',HUF:'Ft'};
 const names={USD:'US Dollar',EUR:'Euro',GBP:'British Pound',JPY:'Japanese Yen',CAD:'Canadian Dollar',AUD:'Australian Dollar',CHF:'Swiss Franc',CNY:'Chinese Yuan',INR:'Indian Rupee',MXN:'Mexican Peso',BRL:'Brazilian Real',KRW:'South Korean Won',SGD:'Singapore Dollar',HKD:'Hong Kong Dollar',NOK:'Norwegian Krone',SEK:'Swedish Krona',DKK:'Danish Krone',NZD:'New Zealand Dollar',ZAR:'South African Rand',AED:'UAE Dirham',THB:'Thai Baht',TRY:'Turkish Lira',PLN:'Polish Zloty',CZK:'Czech Koruna',HUF:'Hungarian Forint'};
@@ -543,7 +815,7 @@ function swapCurrencies(){const f=document.getElementById('fromCurrency'),t=docu
 document.getElementById('amount').addEventListener('keydown',e=>{if(e.key==='Enter')convert();});
 
 populateSelects(); convert(); loadWeather(); updateClock(1); updateClock(2);
-document.getElementById('updateTime').textContent = new Date().toLocaleTimeString();
+document.getElementById('updateTime').textContent=new Date().toLocaleTimeString();
 </script>
 </body>
 </html>
