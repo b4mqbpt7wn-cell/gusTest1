@@ -21,6 +21,7 @@
       --sky-border: #b8d9f0;
       --sky-text: #1a4a6b;
       --sky-muted: #5a8aaa;
+      --nyt-red: #c41230;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -55,130 +56,160 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* ── Webcam section ── */
-    .webcam-section {
-      position: relative;
-      background: #0a0a0f;
+    /* ── News Feed ── */
+    .news-section {
       border-bottom: 1px solid var(--border);
-      overflow: hidden;
+      background: var(--surface);
     }
 
-    .webcam-label {
-      position: absolute;
-      top: 10px; left: 12px;
-      background: rgba(0,0,0,0.55);
-      backdrop-filter: blur(4px);
-      color: #fff;
+    .news-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 18px 8px;
+      border-bottom: 2px solid var(--nyt-red);
+    }
+
+    .news-header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nyt-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+
+    .news-label {
       font-size: 9px;
       letter-spacing: 2px;
       text-transform: uppercase;
-      padding: 4px 10px;
-      border-radius: 20px;
-      z-index: 2;
+      color: var(--muted);
       font-weight: 500;
     }
 
-    .webcam-live-dot {
-      display: inline-block;
-      width: 6px; height: 6px;
-      background: #ff4444;
-      border-radius: 50%;
-      margin-right: 5px;
-      animation: blink 1.5s ease-in-out infinite;
-      vertical-align: middle;
-    }
-
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
-    }
-
-    .webcam-views {
-      display: flex;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-      cursor: grab;
-    }
-
-    .webcam-views::-webkit-scrollbar { display: none; }
-    .webcam-views:active { cursor: grabbing; }
-
-    .webcam-img {
-      flex: 0 0 100%;
-      scroll-snap-align: start;
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      display: block;
-      background: #111;
-    }
-
-    .webcam-nav {
-      position: absolute;
-      bottom: 10px;
-      left: 0; right: 0;
-      display: flex;
-      justify-content: center;
-      gap: 6px;
-      z-index: 2;
-    }
-
-    .webcam-dot {
-      width: 7px; height: 7px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.4);
+    .news-category-select {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      font-family: 'Epilogue', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      padding: 4px 22px 4px 8px;
+      outline: none;
       cursor: pointer;
-      transition: background 0.2s;
-      border: none;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238a8070' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 7px center;
+    }
+
+    .news-ticker-wrap {
+      overflow: hidden;
+      position: relative;
+      height: 168px;
+    }
+
+    .news-list {
+      list-style: none;
       padding: 0;
     }
 
-    .webcam-dot.active { background: #fff; }
-
-    .webcam-arrows {
-      position: absolute;
-      top: 50%; left: 0; right: 0;
-      transform: translateY(-50%);
+    .news-item {
       display: flex;
+      gap: 10px;
+      padding: 9px 18px;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.15s;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .news-item:last-child { border-bottom: none; }
+    .news-item:hover { background: var(--surface2); }
+
+    .news-index {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      color: var(--nyt-red);
+      font-weight: 500;
+      min-width: 18px;
+      padding-top: 1px;
+    }
+
+    .news-content { flex: 1; min-width: 0; }
+
+    .news-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.3;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .news-meta {
+      font-size: 9px;
+      color: var(--muted);
+      margin-top: 2px;
+      letter-spacing: 0.5px;
+    }
+
+    .news-loading {
+      padding: 24px 18px;
+      font-size: 11px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .news-error {
+      padding: 16px 18px;
+      font-size: 11px;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .news-error a {
+      color: var(--nyt-red);
+      text-decoration: none;
+    }
+
+    .news-footer-bar {
+      padding: 6px 18px;
+      background: var(--surface2);
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
       justify-content: space-between;
-      padding: 0 10px;
-      pointer-events: none;
-      z-index: 2;
     }
 
-    .webcam-arrow {
-      background: rgba(0,0,0,0.45);
+    .news-updated {
+      font-size: 9px;
+      color: var(--muted);
+    }
+
+    .news-refresh-btn {
+      background: none;
       border: none;
-      color: #fff;
-      font-size: 16px;
-      width: 32px; height: 32px;
-      border-radius: 50%;
+      font-size: 12px;
+      color: var(--muted);
       cursor: pointer;
-      pointer-events: all;
-      display: flex; align-items: center; justify-content: center;
-      transition: background 0.2s;
+      padding: 2px 6px;
+      border-radius: 4px;
+      transition: all 0.2s;
     }
-
-    .webcam-arrow:hover { background: rgba(0,0,0,0.7); }
-
-    .webcam-refresh {
-      position: absolute;
-      top: 10px; right: 12px;
-      background: rgba(0,0,0,0.55);
-      border: none;
-      color: #fff;
-      font-size: 13px;
-      width: 28px; height: 28px;
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      z-index: 2;
-      transition: transform 0.4s;
-    }
-
-    .webcam-refresh:hover { transform: rotate(180deg); }
+    .news-refresh-btn:hover { color: var(--nyt-red); background: rgba(196,18,48,0.06); }
 
     /* ── Two-column bar ── */
     .top-bar {
@@ -190,19 +221,11 @@
     .weather-col {
       background: linear-gradient(135deg, var(--sky-bg1) 0%, var(--sky-bg2) 100%);
       padding: 14px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+      display: flex; flex-direction: column; gap: 10px;
       border-right: 1px solid var(--sky-border);
     }
 
-    .col-label {
-      font-size: 9px;
-      letter-spacing: 2.5px;
-      text-transform: uppercase;
-      color: var(--sky-muted);
-      font-weight: 500;
-    }
+    .col-label { font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--sky-muted); font-weight: 500; }
 
     .weather-main { display: flex; align-items: center; gap: 8px; }
     .weather-icon { font-size: 24px; line-height: 1; }
@@ -215,23 +238,15 @@
       display: flex;
       background: rgba(255,255,255,0.5);
       border: 1px solid var(--sky-border);
-      border-radius: 20px;
-      overflow: hidden;
-      width: fit-content;
+      border-radius: 20px; overflow: hidden; width: fit-content;
     }
 
     .unit-btn {
-      padding: 3px 9px;
-      cursor: pointer;
-      color: var(--sky-muted);
-      border: none;
-      background: transparent;
-      font-family: 'Epilogue', sans-serif;
-      font-size: 10px;
-      font-weight: 500;
+      padding: 3px 9px; cursor: pointer; color: var(--sky-muted);
+      border: none; background: transparent;
+      font-family: 'Epilogue', sans-serif; font-size: 10px; font-weight: 500;
       transition: all 0.2s;
     }
-
     .unit-btn.active { background: var(--sky-text); color: #fff; border-radius: 20px; }
 
     .weather-controls { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
@@ -239,12 +254,9 @@
     .city-select {
       flex: 1;
       background: rgba(255,255,255,0.6);
-      border: 1px solid var(--sky-border);
-      border-radius: 7px;
-      color: var(--sky-text);
-      font-family: 'Epilogue', sans-serif;
-      font-size: 11px; font-weight: 500;
-      padding: 5px 22px 5px 8px;
+      border: 1px solid var(--sky-border); border-radius: 7px;
+      color: var(--sky-text); font-family: 'Epilogue', sans-serif;
+      font-size: 11px; font-weight: 500; padding: 5px 22px 5px 8px;
       outline: none; cursor: pointer; appearance: none;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%235a8aaa' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
       background-repeat: no-repeat; background-position: right 8px center;
@@ -252,31 +264,20 @@
 
     .clock-col {
       background: linear-gradient(135deg, #f0ede4 0%, #f8f5ee 100%);
-      padding: 14px 16px;
-      display: flex; flex-direction: column; gap: 10px;
+      padding: 14px 16px; display: flex; flex-direction: column; gap: 10px;
     }
 
     .clock-col .col-label { color: var(--muted); }
-
-    .clock-time {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 22px; color: var(--green); line-height: 1; letter-spacing: 1px;
-    }
-
+    .clock-time { font-family: 'Share Tech Mono', monospace; font-size: 22px; color: var(--green); line-height: 1; letter-spacing: 1px; }
     .clock-sec { font-size: 13px; color: var(--muted); font-family: 'Share Tech Mono', monospace; }
     .clock-date { font-size: 10px; color: var(--muted); margin-top: 2px; }
-
     .clock-controls { display: flex; align-items: center; gap: 6px; }
 
     .clock-city-select {
       flex: 1;
-      background: rgba(255,255,255,0.7);
-      border: 1px solid var(--border);
-      border-radius: 7px;
-      color: var(--text);
-      font-family: 'Epilogue', sans-serif;
-      font-size: 11px; font-weight: 500;
-      padding: 5px 22px 5px 8px;
+      background: rgba(255,255,255,0.7); border: 1px solid var(--border);
+      border-radius: 7px; color: var(--text); font-family: 'Epilogue', sans-serif;
+      font-size: 11px; font-weight: 500; padding: 5px 22px 5px 8px;
       outline: none; cursor: pointer; appearance: none;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238a8070' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
       background-repeat: no-repeat; background-position: right 8px center;
@@ -284,36 +285,33 @@
 
     /* ── Header ── */
     .header {
-      padding: 24px 36px 20px;
+      padding: 12px 24px;
       background: linear-gradient(135deg, var(--green) 0%, var(--green-light) 100%);
+      display: flex; align-items: center;
       position: relative; overflow: hidden;
     }
-
     .header::before {
-      content: '¥€£$'; position: absolute; right: -8px; bottom: -14px;
-      font-size: 72px; font-family: 'Cormorant Garamond', serif;
+      content: '¥€£$'; position: absolute; right: -8px; bottom: -10px;
+      font-size: 56px; font-family: 'Cormorant Garamond', serif;
       color: rgba(255,255,255,0.07); letter-spacing: -4px; pointer-events: none;
     }
-
-    .hlabel { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.65); margin-bottom: 5px; }
-    h1 { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 700; color: #fff; line-height: 1.1; }
+    .hlabel { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.6); }
+    h1 { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 700; color: #fff; line-height: 1.1; }
 
     /* ── Body ── */
-    .body { padding: 26px 36px; display: flex; flex-direction: column; gap: 18px; }
-    .field { display: flex; flex-direction: column; gap: 7px; }
-    .field-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); font-weight: 500; }
-    .input-row { display: flex; gap: 8px; }
+    .body { padding: 14px 20px; display: flex; flex-direction: column; gap: 10px; }
+    .field { display: flex; flex-direction: column; gap: 5px; }
+    .field-label { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+    .input-row { display: flex; gap: 7px; }
 
     input[type="number"] {
       flex: 1; background: var(--surface2); border: 1.5px solid var(--border);
-      border-radius: 10px; color: var(--text); font-family: 'Epilogue', sans-serif;
-      font-size: 22px; font-weight: 500; padding: 13px 16px; outline: none;
+      border-radius: 8px; color: var(--text); font-family: 'Epilogue', sans-serif;
+      font-size: 18px; font-weight: 500; padding: 9px 12px; outline: none;
       transition: border-color 0.2s, box-shadow 0.2s; -moz-appearance: textfield;
     }
-
     input[type="number"]::-webkit-inner-spin-button,
     input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
-
     input[type="number"]:focus {
       border-color: var(--green-light);
       box-shadow: 0 0 0 3px rgba(64,145,108,0.12); background: #fff;
@@ -321,63 +319,59 @@
 
     select.currency-select {
       background: var(--surface2); border: 1.5px solid var(--border);
-      border-radius: 10px; color: var(--text); font-family: 'Epilogue', sans-serif;
-      font-size: 13px; font-weight: 500; padding: 13px 32px 13px 12px;
-      outline: none; cursor: pointer; transition: border-color 0.2s, box-shadow 0.2s;
-      appearance: none;
+      border-radius: 8px; color: var(--text); font-family: 'Epilogue', sans-serif;
+      font-size: 12px; font-weight: 500; padding: 9px 28px 9px 10px;
+      outline: none; cursor: pointer;
+      transition: border-color 0.2s, box-shadow 0.2s; appearance: none;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a8070' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-      background-repeat: no-repeat; background-position: right 12px center; min-width: 85px;
+      background-repeat: no-repeat; background-position: right 10px center; min-width: 80px;
     }
-
     select.currency-select:focus {
       border-color: var(--green-light);
       box-shadow: 0 0 0 3px rgba(64,145,108,0.12); background-color: #fff;
     }
 
-    .swap-row { display: flex; align-items: center; gap: 12px; }
-    .divider { flex: 1; height: 1px; background: var(--border); }
+    .middle-row { display: flex; align-items: center; gap: 8px; }
+    .to-select-wrap { flex: 1; }
 
     .swap-btn {
       display: flex; align-items: center; justify-content: center;
       background: var(--surface2); border: 1.5px solid var(--border);
       border-radius: 50%; color: var(--muted); cursor: pointer;
-      width: 36px; height: 36px; font-size: 16px; transition: all 0.25s; flex-shrink: 0;
+      width: 32px; height: 32px; font-size: 14px; transition: all 0.25s; flex-shrink: 0;
     }
-
     .swap-btn:hover { background: var(--green-pale); border-color: var(--green-light); color: var(--green); transform: rotate(180deg); }
 
+    .result-row { display: flex; align-items: center; gap: 10px; }
+
     .result-box {
+      flex: 1;
       background: linear-gradient(135deg, #eaf7ee 0%, #f5fcf6 100%);
-      border: 1.5px solid #b7e4c7; border-radius: 12px;
-      padding: 20px 22px; display: flex; flex-direction: column;
-      gap: 5px; min-height: 88px; justify-content: center; transition: all 0.3s;
+      border: 1.5px solid #b7e4c7; border-radius: 10px;
+      padding: 10px 14px; display: flex; flex-direction: column; gap: 2px; transition: all 0.3s;
     }
-
     .result-box.empty { background: var(--surface2); border-color: var(--border); }
-
     .result-amount {
-      font-family: 'Cormorant Garamond', serif; font-size: 38px;
+      font-family: 'Cormorant Garamond', serif; font-size: 26px;
       font-weight: 700; color: var(--green); line-height: 1; transition: all 0.3s;
     }
-
-    .result-box.empty .result-amount { color: var(--muted); font-size: 28px; }
-    .result-sub { font-size: 11px; color: var(--muted); letter-spacing: 0.5px; }
+    .result-box.empty .result-amount { color: var(--muted); font-size: 18px; }
+    .result-sub { font-size: 10px; color: var(--muted); }
 
     .convert-btn {
-      background: var(--green); border: none; border-radius: 10px; color: #fff;
-      font-family: 'Epilogue', sans-serif; font-size: 12px; font-weight: 500;
-      letter-spacing: 2px; text-transform: uppercase; padding: 15px;
-      cursor: pointer; transition: all 0.2s; width: 100%;
+      background: var(--green); border: none; border-radius: 8px; color: #fff;
+      font-family: 'Epilogue', sans-serif; font-size: 10px; font-weight: 500;
+      letter-spacing: 2px; text-transform: uppercase; padding: 10px 14px;
+      cursor: pointer; transition: all 0.2s; white-space: nowrap;
     }
-
-    .convert-btn:hover { background: var(--green-light); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(45,106,79,0.25); }
+    .convert-btn:hover { background: var(--green-light); transform: translateY(-1px); box-shadow: 0 4px 14px rgba(45,106,79,0.25); }
     .convert-btn:active { transform: translateY(0); }
 
-    .rate-info { display: flex; justify-content: space-between; font-size: 10px; color: var(--muted); padding: 0 2px; }
+    .rate-info { display: flex; justify-content: space-between; font-size: 9px; color: var(--muted); padding: 0 2px; }
 
     .footer {
-      padding: 12px 36px; border-top: 1px solid var(--border);
-      font-size: 10px; color: var(--muted);
+      padding: 9px 20px; border-top: 1px solid var(--border);
+      font-size: 9px; color: var(--muted);
       display: flex; justify-content: space-between; background: var(--surface2);
     }
 
@@ -392,24 +386,34 @@
 <body>
 <div class="card">
 
-  <!-- Webcam -->
-  <div class="webcam-section">
-    <div class="webcam-label">
-      <span class="webcam-live-dot"></span>Moonstone Beach · Cambria, CA
+  <!-- News Feed -->
+  <div class="news-section">
+    <div class="news-header">
+      <div class="news-header-left">
+        <span class="nyt-logo">The New York Times</span>
+        <span class="news-label">Headlines</span>
+      </div>
+      <select class="news-category-select" id="newsCategory" onchange="loadNews()">
+        <option value="https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml">Top Stories</option>
+        <option value="https://rss.nytimes.com/services/xml/rss/nyt/World.xml">World</option>
+        <option value="https://rss.nytimes.com/services/xml/rss/nyt/US.xml">U.S.</option>
+        <option value="https://rss.nytimes.com/services/xml/rss/nyt/Politics.xml">Politics</option>
+        <option value="https://rss.nytimes.com/services/xml/rss/nyt/Business.xml">Business</option>
+        <option value="https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml">Technology</option>
+        <option value="https://rss.nytimes.com/services/xml/rss/nyt/Science.xml">Science</option>
+        <option value="https://rss.nytimes.com/services/xml/rss/nyt/Health.xml">Health</option>
+        <option value="https://rss.nytimes.com/services/xml/rss/nyt/Arts.xml">Arts</option>
+        <option value="https://rss.nytimes.com/services/xml/rss/nyt/Sports.xml">Sports</option>
+        <option value="https://rss.nytimes.com/services/xml/rss/nyt/Travel.xml">Travel</option>
+      </select>
     </div>
-    <button class="webcam-refresh" onclick="refreshCam()" title="Refresh">↻</button>
-    <div class="webcam-views" id="webcamViews">
-      <img class="webcam-img" id="cam1" src="" alt="Moonstone Beach View 1">
-      <img class="webcam-img" id="cam2" src="" alt="Moonstone Beach View 2">
-      <img class="webcam-img" id="cam3" src="" alt="Moonstone Beach View 3">
-      <img class="webcam-img" id="cam4" src="" alt="Moonstone Beach View 4">
-      <img class="webcam-img" id="cam5" src="" alt="Moonstone Beach View 5">
+    <div class="news-ticker-wrap">
+      <div id="newsList" class="news-loading">Loading headlines...</div>
     </div>
-    <div class="webcam-arrows">
-      <button class="webcam-arrow" onclick="moveSlide(-1)">‹</button>
-      <button class="webcam-arrow" onclick="moveSlide(1)">›</button>
+    <div class="news-footer-bar">
+      <span class="news-updated" id="newsUpdated">—</span>
+      <button class="news-refresh-btn" onclick="loadNews()" title="Refresh">↻ Refresh</button>
     </div>
-    <div class="webcam-nav" id="webcamNav"></div>
   </div>
 
   <!-- Weather + Clock -->
@@ -426,26 +430,32 @@
       </div>
       <div class="weather-controls">
         <select class="city-select" id="weatherCity" onchange="loadWeather()">
-          <option value="Berlin|52.52|13.405">Berlin</option>
-          <option value="London|51.51|-0.13">London</option>
-          <option value="Paris|48.85|2.35">Paris</option>
-          <option value="New York|40.71|-74.01">New York</option>
-          <option value="Tokyo|35.69|139.69">Tokyo</option>
-          <option value="Sydney|-33.87|151.21">Sydney</option>
-          <option value="Dubai|25.2|55.27">Dubai</option>
-          <option value="Singapore|1.35|103.82">Singapore</option>
-          <option value="Amsterdam|52.37|4.9">Amsterdam</option>
-          <option value="Rome|41.9|12.49">Rome</option>
-          <option value="Barcelona|41.39|2.16">Barcelona</option>
-          <option value="Istanbul|41.01|28.95">Istanbul</option>
-          <option value="Bangkok|13.75|100.52">Bangkok</option>
-          <option value="Mumbai|19.08|72.88">Mumbai</option>
-          <option value="São Paulo|-23.55|-46.63">São Paulo</option>
-          <option value="Mexico City|19.43|-99.13">Mexico City</option>
-          <option value="Toronto|43.65|-79.38">Toronto</option>
-          <option value="Los Angeles|34.05|-118.24">Los Angeles</option>
-          <option value="Chicago|41.88|-87.63">Chicago</option>
-          <option value="Seoul|37.57|126.98">Seoul</option>
+          <optgroup label="Central Coast CA">
+            <option value="Cambria|35.5641|-121.0819">Cambria, CA</option>
+            <option value="San Luis Obispo|35.2828|-120.6596">San Luis Obispo, CA</option>
+          </optgroup>
+          <optgroup label="World Cities">
+            <option value="Berlin|52.52|13.405">Berlin</option>
+            <option value="London|51.51|-0.13">London</option>
+            <option value="Paris|48.85|2.35">Paris</option>
+            <option value="New York|40.71|-74.01">New York</option>
+            <option value="Tokyo|35.69|139.69">Tokyo</option>
+            <option value="Sydney|-33.87|151.21">Sydney</option>
+            <option value="Dubai|25.2|55.27">Dubai</option>
+            <option value="Singapore|1.35|103.82">Singapore</option>
+            <option value="Amsterdam|52.37|4.9">Amsterdam</option>
+            <option value="Rome|41.9|12.49">Rome</option>
+            <option value="Barcelona|41.39|2.16">Barcelona</option>
+            <option value="Istanbul|41.01|28.95">Istanbul</option>
+            <option value="Bangkok|13.75|100.52">Bangkok</option>
+            <option value="Mumbai|19.08|72.88">Mumbai</option>
+            <option value="São Paulo|-23.55|-46.63">São Paulo</option>
+            <option value="Mexico City|19.43|-99.13">Mexico City</option>
+            <option value="Toronto|43.65|-79.38">Toronto</option>
+            <option value="Los Angeles|34.05|-118.24">Los Angeles</option>
+            <option value="Chicago|41.88|-87.63">Chicago</option>
+            <option value="Seoul|37.57|126.98">Seoul</option>
+          </optgroup>
         </select>
         <div class="unit-toggle">
           <button class="unit-btn active" id="btnC" onclick="setUnit('C')">°C</button>
@@ -457,7 +467,7 @@
     <div class="clock-col">
       <div class="col-label">World Clock</div>
       <div>
-        <div class="clock-time" id="clockTime">00:00<span class="clock-sec" id="clockSec">:00</span></div>
+        <div class="clock-time" id="clockTime">00:00<span class="clock-sec">:00</span></div>
         <div class="clock-date" id="clockDate">--</div>
       </div>
       <div class="clock-controls">
@@ -489,11 +499,13 @@
 
   <!-- Header -->
   <div class="header">
-    <div class="hlabel">Exchange Rate</div>
-    <h1>Currency<br>Converter</h1>
+    <div>
+      <div class="hlabel">Exchange Rate</div>
+      <h1>Currency Converter</h1>
+    </div>
   </div>
 
-  <!-- Converter -->
+  <!-- Body -->
   <div class="body">
     <div class="field">
       <div class="field-label">Amount & From</div>
@@ -503,25 +515,21 @@
       </div>
     </div>
 
-    <div class="swap-row">
-      <div class="divider"></div>
+    <div class="middle-row">
       <button class="swap-btn" onclick="swapCurrencies()">⇅</button>
-      <div class="divider"></div>
-    </div>
-
-    <div class="field">
-      <div class="field-label">To Currency</div>
-      <div class="input-row">
-        <select id="toCurrency" class="currency-select" style="flex:1"></select>
+      <div class="to-select-wrap">
+        <div class="field-label" style="margin-bottom:5px;">To Currency</div>
+        <select id="toCurrency" class="currency-select" style="width:100%;"></select>
       </div>
     </div>
 
-    <div class="result-box empty" id="resultBox">
-      <div class="result-amount" id="resultAmount">—</div>
-      <div class="result-sub" id="resultSub">Press convert to calculate</div>
+    <div class="result-row">
+      <div class="result-box empty" id="resultBox">
+        <div class="result-amount" id="resultAmount">—</div>
+        <div class="result-sub" id="resultSub">Press convert</div>
+      </div>
+      <button class="convert-btn" onclick="convert()">Convert</button>
     </div>
-
-    <button class="convert-btn" onclick="convert()">Convert</button>
 
     <div class="rate-info">
       <span id="rateText">—</span>
@@ -536,76 +544,74 @@
 </div>
 
 <script>
-  // ── Webcam ──
-  const camBase = 'https://www.805webcams.com/cameras/cambriashores/';
-  const camViews = [1,2,3,4,5];
-  let currentSlide = 0;
+  // ── News Feed ──
+  async function loadNews() {
+    const feedUrl = document.getElementById('newsCategory').value;
+    const proxy = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}&count=6`;
+    const container = document.getElementById('newsList');
+    container.innerHTML = '<div class="news-loading">Loading headlines...</div>';
 
-  function buildCamUrl(n) {
-    return `${camBase}camera${n}.jpg?v=${Date.now()}`;
+    try {
+      const res = await fetch(proxy);
+      const data = await res.json();
+
+      if (!data.items || data.items.length === 0) throw new Error('No items');
+
+      const ul = document.createElement('ul');
+      ul.className = 'news-list';
+
+      data.items.forEach((item, i) => {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.className = 'news-item';
+        a.href = item.link;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+
+        const pubDate = item.pubDate ? new Date(item.pubDate).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }) : '';
+
+        a.innerHTML = `
+          <span class="news-index">${String(i + 1).padStart(2, '0')}</span>
+          <div class="news-content">
+            <div class="news-title">${item.title}</div>
+            <div class="news-meta">${pubDate}</div>
+          </div>
+        `;
+        li.appendChild(a);
+        ul.appendChild(li);
+      });
+
+      container.innerHTML = '';
+      container.appendChild(ul);
+      document.getElementById('newsUpdated').textContent = `Updated ${new Date().toLocaleTimeString()}`;
+    } catch(e) {
+      container.innerHTML = `
+        <div class="news-error">
+          Unable to load headlines.<br>
+          <a href="https://www.nytimes.com" target="_blank">Visit NYTimes.com ↗</a>
+        </div>`;
+    }
   }
 
-  function loadCams() {
-    camViews.forEach((n, i) => {
-      const img = document.getElementById(`cam${n}`);
-      img.src = buildCamUrl(n);
-      img.onerror = () => { img.style.background = '#1a1a2e'; };
-    });
-    buildDots();
-  }
-
-  function buildDots() {
-    const nav = document.getElementById('webcamNav');
-    nav.innerHTML = '';
-    camViews.forEach((_, i) => {
-      const d = document.createElement('button');
-      d.className = 'webcam-dot' + (i === 0 ? ' active' : '');
-      d.onclick = () => goToSlide(i);
-      nav.appendChild(d);
-    });
-  }
-
-  function goToSlide(i) {
-    currentSlide = i;
-    const views = document.getElementById('webcamViews');
-    views.scrollTo({ left: views.offsetWidth * i, behavior: 'smooth' });
-    document.querySelectorAll('.webcam-dot').forEach((d, idx) => {
-      d.classList.toggle('active', idx === i);
-    });
-  }
-
-  function moveSlide(dir) {
-    goToSlide((currentSlide + dir + camViews.length) % camViews.length);
-  }
-
-  function refreshCam() {
-    loadCams();
-  }
-
-  // Auto-advance every 8 seconds
-  setInterval(() => moveSlide(1), 8000);
-
-  // Auto-refresh images every 60 seconds
-  setInterval(loadCams, 60000);
+  // Auto-refresh news every 10 minutes
+  setInterval(loadNews, 10 * 60 * 1000);
 
   // ── Weather ──
   const weatherCodes = {
     0:'Sunny', 1:'Mostly clear', 2:'Partly cloudy', 3:'Overcast',
     45:'Foggy', 48:'Icy fog', 51:'Light drizzle', 53:'Drizzle', 55:'Heavy drizzle',
     61:'Light rain', 63:'Rain', 65:'Heavy rain', 71:'Light snow', 73:'Snow',
-    75:'Heavy snow', 77:'Snow grains', 80:'Showers', 81:'Rain showers',
-    82:'Heavy showers', 85:'Snow showers', 86:'Heavy snow showers',
+    75:'Heavy snow', 80:'Showers', 81:'Rain showers', 82:'Heavy showers',
     95:'Thunderstorm', 96:'Thunderstorm w/ hail', 99:'Severe thunderstorm'
   };
   const weatherIcons = {
     0:'☀️', 1:'🌤️', 2:'⛅', 3:'☁️', 45:'🌫️', 48:'🌫️',
     51:'🌦️', 53:'🌦️', 55:'🌧️', 61:'🌧️', 63:'🌧️', 65:'🌧️',
-    71:'🌨️', 73:'❄️', 75:'❄️', 77:'🌨️', 80:'🌦️', 81:'🌧️',
-    82:'⛈️', 85:'🌨️', 86:'❄️', 95:'⛈️', 96:'⛈️', 99:'⛈️'
+    71:'🌨️', 73:'❄️', 75:'❄️', 80:'🌦️', 81:'🌧️', 82:'⛈️',
+    95:'⛈️', 96:'⛈️', 99:'⛈️'
   };
 
   let unit = 'C', lastTempC = null, lastHighC = null;
-
   function toF(c) { return (c * 9/5 + 32).toFixed(1); }
 
   function setUnit(u) {
@@ -617,13 +623,8 @@
 
   function updateTempDisplay() {
     if (lastTempC === null) return;
-    if (unit === 'C') {
-      document.getElementById('wTemp').textContent = `${lastTempC.toFixed(1)}°C`;
-      document.getElementById('wHigh').textContent = `High: ${lastHighC.toFixed(1)}°C`;
-    } else {
-      document.getElementById('wTemp').textContent = `${toF(lastTempC)}°F`;
-      document.getElementById('wHigh').textContent = `High: ${toF(lastHighC)}°F`;
-    }
+    document.getElementById('wTemp').textContent = unit === 'C' ? `${lastTempC.toFixed(1)}°C` : `${toF(lastTempC)}°F`;
+    document.getElementById('wHigh').textContent = unit === 'C' ? `High: ${lastHighC.toFixed(1)}°C` : `High: ${toF(lastHighC)}°F`;
   }
 
   async function loadWeather() {
@@ -642,14 +643,11 @@
       document.getElementById('wIcon').textContent = weatherIcons[code] || '🌤️';
       document.getElementById('wCond').textContent = weatherCodes[code] || 'Clear';
       updateTempDisplay();
-    } catch(e) {
-      document.getElementById('wCond').textContent = 'Unavailable';
-    }
+    } catch(e) { document.getElementById('wCond').textContent = 'Unavailable'; }
   }
 
-  // ── World Clock ──
+  // ── Clock ──
   let clockInterval = null;
-
   function updateClock() {
     const [city, tz] = document.getElementById('clockCity').value.split('|');
     function tick() {
@@ -697,8 +695,7 @@
       from.add(new Option(`${sym} ${code}`, code));
       to.add(new Option(`${sym} ${code} — ${names[code]}`, code));
     });
-    from.value = 'USD';
-    to.value = 'EUR';
+    from.value = 'USD'; to.value = 'EUR';
   }
 
   function convert() {
@@ -711,17 +708,13 @@
     if (isNaN(amount) || amount < 0) {
       resultEl.textContent = '—';
       document.getElementById('resultSub').textContent = 'Enter a valid amount';
-      resultBox.classList.add('empty');
-      return;
+      resultBox.classList.add('empty'); return;
     }
 
     const result = (amount / rates[from]) * rates[to];
     const rate = rates[to] / rates[from];
-    const sym = symbols[to] || '';
-    const fromSym = symbols[from] || '';
-
-    resultEl.textContent = `${sym}${result.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:4})}`;
-    document.getElementById('resultSub').textContent = `${fromSym}${amount.toLocaleString()} ${from} → ${names[to]}`;
+    resultEl.textContent = `${symbols[to]}${result.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:4})}`;
+    document.getElementById('resultSub').textContent = `${symbols[from]}${amount.toLocaleString()} ${from} → ${names[to]}`;
     document.getElementById('rateText').textContent = `1 ${from} = ${rate.toFixed(4)} ${to}`;
     document.getElementById('rateDate').textContent = 'Mar 2026';
     document.getElementById('updateTime').textContent = new Date().toLocaleTimeString();
@@ -735,9 +728,7 @@
   function swapCurrencies() {
     const from = document.getElementById('fromCurrency');
     const to = document.getElementById('toCurrency');
-    const tmp = from.value;
-    from.value = to.value;
-    to.value = tmp;
+    const tmp = from.value; from.value = to.value; to.value = tmp;
     convert();
   }
 
@@ -745,12 +736,11 @@
     if (e.key === 'Enter') convert();
   });
 
-  // ── Init ──
   populateSelects();
   convert();
   loadWeather();
   updateClock();
-  loadCams();
+  loadNews();
   document.getElementById('updateTime').textContent = new Date().toLocaleTimeString();
 </script>
 </body>
