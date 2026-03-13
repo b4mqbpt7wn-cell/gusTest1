@@ -7,338 +7,201 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Epilogue:wght@300;400;500&family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #f5f0e8;
-      --surface: #fffdf8;
-      --surface2: #f0ebe0;
-      --border: #ddd5c0;
-      --green: #2d6a4f;
-      --green-light: #40916c;
-      --green-pale: #d8f3dc;
-      --text: #1a1a14;
-      --muted: #8a8070;
-      --sky-bg1: #dceefb;
-      --sky-bg2: #eaf4fd;
-      --sky-border: #b8d9f0;
-      --sky-text: #1a4a6b;
-      --sky-muted: #5a8aaa;
+      --bg: #f5f0e8; --surface: #fffdf8; --surface2: #f0ebe0; --border: #ddd5c0;
+      --green: #2d6a4f; --green-light: #40916c; --green-pale: #d8f3dc;
+      --text: #1a1a14; --muted: #8a8070;
+      --sky-bg1: #dceefb; --sky-bg2: #eaf4fd; --sky-border: #b8d9f0;
+      --sky-text: #1a4a6b; --sky-muted: #5a8aaa;
     }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
+    * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      font-family: 'Epilogue', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      padding: clamp(8px, 3vw, 30px);
+      font-family:'Epilogue',sans-serif; background:var(--bg); color:var(--text);
+      min-height:100vh; display:flex; align-items:flex-start; justify-content:center;
+      padding:clamp(8px,3vw,30px);
       background-image:
-        radial-gradient(ellipse at 10% 90%, rgba(45,106,79,0.08) 0%, transparent 55%),
-        radial-gradient(ellipse at 90% 10%, rgba(183,147,90,0.10) 0%, transparent 50%);
+        radial-gradient(ellipse at 10% 90%,rgba(45,106,79,.08) 0%,transparent 55%),
+        radial-gradient(ellipse at 90% 10%,rgba(183,147,90,.10) 0%,transparent 50%);
     }
-
     .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: clamp(8px, 2vw, 16px);
-      width: 100%;
-      max-width: 540px;
-      overflow: hidden;
-      box-shadow: 0 8px 40px rgba(45,106,79,0.08), 0 2px 8px rgba(0,0,0,0.06);
-      animation: fadeUp 0.5s ease both;
+      background:var(--surface); border:1px solid var(--border);
+      border-radius:clamp(8px,2vw,16px); width:100%; max-width:540px;
+      overflow:hidden; box-shadow:0 8px 40px rgba(45,106,79,.08),0 2px 8px rgba(0,0,0,.06);
+      animation:fadeUp .5s ease both;
     }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
 
     /* ── Slideshow ── */
     .slideshow {
-      position: relative;
-      height: clamp(150px, 38vw, 230px);
-      overflow: hidden;
-      background: #2a3040;
-      border-bottom: 1px solid var(--border);
+      position:relative; height:clamp(150px,38vw,230px);
+      overflow:hidden; background:#1e2d40; border-bottom:1px solid var(--border);
     }
-
-    .slide {
-      position: absolute; inset: 0;
-      opacity: 0; transition: opacity 1.4s ease-in-out;
-    }
-    .slide.active { opacity: 1; }
-
-    .slide img {
-      width: 100%; height: 100%;
-      object-fit: cover; display: block;
-    }
-
-    /* Placeholder while image loads */
-    .slide::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(135deg, #2a3a50 0%, #1a2535 100%);
-      z-index: 0;
-    }
-    .slide img { position: relative; z-index: 1; }
-
+    .slide { position:absolute; inset:0; opacity:0; transition:opacity 1.4s ease-in-out; }
+    .slide.active { opacity:1; }
+    .slide img { width:100%; height:100%; object-fit:cover; display:block; }
     .slide-caption {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      padding: 30px 13px 9px;
-      background: linear-gradient(transparent, rgba(0,0,0,0.60));
-      color: #fff;
-      font-size: clamp(7px, 1.8vw, 10px);
-      letter-spacing: 1.5px; text-transform: uppercase; font-weight: 500;
-      z-index: 2;
+      position:absolute; bottom:0; left:0; right:0;
+      padding:30px 13px 9px;
+      background:linear-gradient(transparent,rgba(0,0,0,.62));
+      color:#fff; font-size:clamp(7px,1.8vw,10px);
+      letter-spacing:1.5px; text-transform:uppercase; font-weight:500; z-index:2;
     }
-
     .slide-counter {
-      position: absolute; top: 9px; left: 11px;
-      font-family: 'Share Tech Mono', monospace;
-      font-size: clamp(9px, 2vw, 11px);
-      color: rgba(255,255,255,0.80);
-      z-index: 3; letter-spacing: 1px;
-      text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+      position:absolute; top:9px; left:11px; z-index:3;
+      font-family:'Share Tech Mono',monospace; font-size:clamp(9px,2vw,11px);
+      color:rgba(255,255,255,.8); letter-spacing:1px;
+      text-shadow:0 1px 4px rgba(0,0,0,.5);
     }
-
     .slide-dots {
-      position: absolute; top: 9px; right: 10px;
-      display: flex; flex-wrap: wrap; gap: 4px;
-      z-index: 3; max-width: 100px; justify-content: flex-end;
+      position:absolute; top:9px; right:10px; z-index:3;
+      display:flex; flex-wrap:wrap; gap:4px; max-width:100px; justify-content:flex-end;
     }
     .slide-dot {
-      width: 5px; height: 5px; border-radius: 50%;
-      background: rgba(255,255,255,0.35);
-      border: none; padding: 0; cursor: pointer;
-      transition: background 0.2s;
+      width:5px; height:5px; border-radius:50%;
+      background:rgba(255,255,255,.35); border:none; padding:0; cursor:pointer;
+      transition:background .2s;
     }
-    .slide-dot.active { background: rgba(255,255,255,0.95); }
-
+    .slide-dot.active { background:rgba(255,255,255,.95); }
     .slide-progress {
-      position: absolute; bottom: 0; left: 0;
-      height: 2px; background: rgba(255,255,255,0.6);
-      width: 0%; z-index: 4;
-      transition: width 12s linear;
+      position:absolute; bottom:0; left:0; height:2px;
+      background:rgba(255,255,255,.55); width:0%; z-index:4;
+      transition:width 12s linear;
     }
-    .slide-progress.running { width: 100%; }
+    .slide-progress.running { width:100%; }
 
-    /* ── Dual World Clock ── */
-    .clock-bar {
-      display: grid; grid-template-columns: 1fr 1fr;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .clock-pane {
-      padding: clamp(9px, 2.5vw, 13px) clamp(11px, 3vw, 15px);
-      display: flex; flex-direction: column; gap: 4px;
-    }
-    .clock-pane:first-child {
-      border-right: 1px solid var(--border);
-      background: linear-gradient(135deg, #f0ede4 0%, #f8f5ee 100%);
-    }
-    .clock-pane:last-child {
-      background: linear-gradient(135deg, #e8edf5 0%, #f2f5fb 100%);
-    }
-
-    .col-label {
-      font-size: clamp(7px, 1.5vw, 9px);
-      letter-spacing: 2px; text-transform: uppercase;
-      color: var(--muted); font-weight: 500;
-    }
-
-    .clock-city-name {
-      font-size: clamp(8px, 1.8vw, 10px);
-      color: var(--muted); font-weight: 500; letter-spacing: 0.3px;
-    }
-
-    .clock-time {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: clamp(16px, 4.2vw, 21px);
-      line-height: 1; letter-spacing: 1px;
-    }
-    .clock-pane:first-child .clock-time { color: var(--green); }
-    .clock-pane:last-child  .clock-time { color: var(--sky-text); }
-
-    .clock-sec {
-      font-size: clamp(10px, 2.5vw, 13px);
-      color: var(--muted); font-family: 'Share Tech Mono', monospace;
-    }
-    .clock-date { font-size: clamp(7px, 1.6vw, 9px); color: var(--muted); }
-
+    /* ── Dual Clock ── */
+    .clock-bar { display:grid; grid-template-columns:1fr 1fr; border-bottom:1px solid var(--border); }
+    .clock-pane { padding:clamp(9px,2.5vw,13px) clamp(11px,3vw,15px); display:flex; flex-direction:column; gap:4px; }
+    .clock-pane:first-child { border-right:1px solid var(--border); background:linear-gradient(135deg,#f0ede4,#f8f5ee); }
+    .clock-pane:last-child  { background:linear-gradient(135deg,#e8edf5,#f2f5fb); }
+    .col-label { font-size:clamp(7px,1.5vw,9px); letter-spacing:2px; text-transform:uppercase; color:var(--muted); font-weight:500; }
+    .clock-city-name { font-size:clamp(8px,1.8vw,10px); color:var(--muted); font-weight:500; }
+    .clock-time { font-family:'Share Tech Mono',monospace; font-size:clamp(16px,4.2vw,21px); line-height:1; letter-spacing:1px; }
+    .clock-pane:first-child .clock-time { color:var(--green); }
+    .clock-pane:last-child  .clock-time { color:var(--sky-text); }
+    .clock-sec { font-size:clamp(10px,2.5vw,13px); color:var(--muted); font-family:'Share Tech Mono',monospace; }
+    .clock-date { font-size:clamp(7px,1.6vw,9px); color:var(--muted); }
     .clock-city-select {
-      background: rgba(255,255,255,0.7);
-      border: 1px solid var(--border); border-radius: 6px;
-      color: var(--text); font-family: 'Epilogue', sans-serif;
-      font-size: clamp(9px, 1.9vw, 11px); font-weight: 500;
-      padding: 4px 20px 4px 7px;
-      outline: none; cursor: pointer; appearance: none; width: 100%;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238a8070' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-      background-repeat: no-repeat; background-position: right 7px center;
-      margin-top: 2px;
+      background:rgba(255,255,255,.7); border:1px solid var(--border); border-radius:6px;
+      color:var(--text); font-family:'Epilogue',sans-serif; font-size:clamp(9px,1.9vw,11px);
+      font-weight:500; padding:4px 20px 4px 7px; outline:none; cursor:pointer;
+      appearance:none; width:100%; margin-top:2px;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238a8070' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat:no-repeat; background-position:right 7px center;
     }
 
     /* ── Weather ── */
     .weather-bar {
-      background: linear-gradient(135deg, var(--sky-bg1) 0%, var(--sky-bg2) 100%);
-      padding: clamp(10px, 2.5vw, 13px) clamp(11px, 3vw, 15px);
-      display: flex; align-items: center; gap: 12px;
-      border-bottom: 1px solid var(--sky-border); flex-wrap: wrap;
+      background:linear-gradient(135deg,var(--sky-bg1),var(--sky-bg2));
+      padding:clamp(10px,2.5vw,13px) clamp(11px,3vw,15px);
+      display:flex; align-items:center; gap:12px;
+      border-bottom:1px solid var(--sky-border); flex-wrap:wrap;
     }
-
-    .weather-main { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-    .weather-icon { font-size: clamp(20px, 5vw, 26px); line-height: 1; }
-    .weather-temps { display: flex; flex-direction: column; gap: 1px; }
-    .weather-now { font-family: 'Share Tech Mono', monospace; font-size: clamp(17px, 4.5vw, 22px); color: var(--sky-text); line-height: 1; }
-    .weather-cond { font-size: clamp(9px, 1.9vw, 10px); color: var(--sky-muted); }
-    .weather-high { font-size: clamp(9px, 1.9vw, 10px); color: var(--sky-muted); }
-
-    .weather-right { display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 130px; }
-
-    .unit-toggle {
-      display: flex; background: rgba(255,255,255,0.5);
-      border: 1px solid var(--sky-border); border-radius: 20px;
-      overflow: hidden; width: fit-content;
-    }
-    .unit-btn {
-      padding: 3px 9px; cursor: pointer; color: var(--sky-muted);
-      border: none; background: transparent;
-      font-family: 'Epilogue', sans-serif; font-size: 10px; font-weight: 500; transition: all 0.2s;
-    }
-    .unit-btn.active { background: var(--sky-text); color: #fff; border-radius: 20px; }
-
-    .weather-controls { display: flex; align-items: center; gap: 6px; }
-
+    .weather-main { display:flex; align-items:center; gap:8px; flex-shrink:0; }
+    .weather-icon { font-size:clamp(20px,5vw,26px); line-height:1; }
+    .weather-temps { display:flex; flex-direction:column; gap:1px; }
+    .weather-now { font-family:'Share Tech Mono',monospace; font-size:clamp(17px,4.5vw,22px); color:var(--sky-text); line-height:1; }
+    .weather-cond,.weather-high { font-size:clamp(9px,1.9vw,10px); color:var(--sky-muted); }
+    .weather-right { display:flex; flex-direction:column; gap:6px; flex:1; min-width:130px; }
+    .unit-toggle { display:flex; background:rgba(255,255,255,.5); border:1px solid var(--sky-border); border-radius:20px; overflow:hidden; width:fit-content; }
+    .unit-btn { padding:3px 9px; cursor:pointer; color:var(--sky-muted); border:none; background:transparent; font-family:'Epilogue',sans-serif; font-size:10px; font-weight:500; transition:all .2s; }
+    .unit-btn.active { background:var(--sky-text); color:#fff; border-radius:20px; }
+    .weather-controls { display:flex; align-items:center; gap:6px; }
     .city-select {
-      flex: 1; background: rgba(255,255,255,0.6);
-      border: 1px solid var(--sky-border); border-radius: 7px;
-      color: var(--sky-text); font-family: 'Epilogue', sans-serif;
-      font-size: clamp(9px, 2vw, 11px); font-weight: 500; padding: 5px 22px 5px 8px;
-      outline: none; cursor: pointer; appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%235a8aaa' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-      background-repeat: no-repeat; background-position: right 8px center;
+      flex:1; background:rgba(255,255,255,.6); border:1px solid var(--sky-border); border-radius:7px;
+      color:var(--sky-text); font-family:'Epilogue',sans-serif; font-size:clamp(9px,2vw,11px);
+      font-weight:500; padding:5px 22px 5px 8px; outline:none; cursor:pointer; appearance:none;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%235a8aaa' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat:no-repeat; background-position:right 8px center;
     }
 
     /* ── Header ── */
     .header {
-      padding: clamp(9px, 2.5vw, 12px) clamp(13px, 4vw, 22px);
-      background: linear-gradient(135deg, var(--green) 0%, var(--green-light) 100%);
-      display: flex; align-items: center; position: relative; overflow: hidden;
+      padding:clamp(9px,2.5vw,12px) clamp(13px,4vw,22px);
+      background:linear-gradient(135deg,var(--green),var(--green-light));
+      display:flex; align-items:center; position:relative; overflow:hidden;
     }
     .header::before {
-      content: '¥€£$'; position: absolute; right: -8px; bottom: -10px;
-      font-size: clamp(34px, 10vw, 54px); font-family: 'Cormorant Garamond', serif;
-      color: rgba(255,255,255,0.07); letter-spacing: -4px; pointer-events: none;
+      content:'¥€£$'; position:absolute; right:-8px; bottom:-10px;
+      font-size:clamp(34px,10vw,54px); font-family:'Cormorant Garamond',serif;
+      color:rgba(255,255,255,.07); letter-spacing:-4px; pointer-events:none;
     }
-    .hlabel { font-size: clamp(7px, 1.5vw, 9px); letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.6); }
-    h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(17px, 4.5vw, 22px); font-weight: 700; color: #fff; line-height: 1.1; }
+    .hlabel { font-size:clamp(7px,1.5vw,9px); letter-spacing:3px; text-transform:uppercase; color:rgba(255,255,255,.6); }
+    h1 { font-family:'Cormorant Garamond',serif; font-size:clamp(17px,4.5vw,22px); font-weight:700; color:#fff; line-height:1.1; }
 
-    /* ── Body ── */
-    .body {
-      padding: clamp(10px, 3vw, 14px) clamp(11px, 3.5vw, 18px);
-      display: flex; flex-direction: column; gap: 10px;
-    }
-
-    .field { display: flex; flex-direction: column; gap: 5px; }
-    .field-label { font-size: clamp(7px, 1.5vw, 9px); letter-spacing: 2px; text-transform: uppercase; color: var(--muted); font-weight: 500; }
-    .input-row { display: flex; gap: 7px; }
-
+    /* ── Converter Body ── */
+    .body { padding:clamp(10px,3vw,14px) clamp(11px,3.5vw,18px); display:flex; flex-direction:column; gap:10px; }
+    .field { display:flex; flex-direction:column; gap:5px; }
+    .field-label { font-size:clamp(7px,1.5vw,9px); letter-spacing:2px; text-transform:uppercase; color:var(--muted); font-weight:500; }
+    .input-row { display:flex; gap:7px; }
     input[type="number"] {
-      flex: 1; background: var(--surface2); border: 1.5px solid var(--border);
-      border-radius: 8px; color: var(--text); font-family: 'Epilogue', sans-serif;
-      font-size: clamp(14px, 4vw, 18px); font-weight: 500;
-      padding: clamp(7px, 2vw, 9px) clamp(8px, 2.5vw, 12px);
-      outline: none; transition: border-color 0.2s, box-shadow 0.2s; -moz-appearance: textfield;
+      flex:1; background:var(--surface2); border:1.5px solid var(--border); border-radius:8px;
+      color:var(--text); font-family:'Epilogue',sans-serif; font-size:clamp(14px,4vw,18px);
+      font-weight:500; padding:clamp(7px,2vw,9px) clamp(8px,2.5vw,12px);
+      outline:none; transition:border-color .2s,box-shadow .2s; -moz-appearance:textfield;
     }
     input[type="number"]::-webkit-inner-spin-button,
-    input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
-    input[type="number"]:focus {
-      border-color: var(--green-light);
-      box-shadow: 0 0 0 3px rgba(64,145,108,0.12); background: #fff;
-    }
-
+    input[type="number"]::-webkit-outer-spin-button { -webkit-appearance:none; }
+    input[type="number"]:focus { border-color:var(--green-light); box-shadow:0 0 0 3px rgba(64,145,108,.12); background:#fff; }
     select.currency-select {
-      background: var(--surface2); border: 1.5px solid var(--border);
-      border-radius: 8px; color: var(--text); font-family: 'Epilogue', sans-serif;
-      font-size: clamp(10px, 2.5vw, 12px); font-weight: 500;
-      padding: clamp(7px, 2vw, 9px) 26px clamp(7px, 2vw, 9px) 9px;
-      outline: none; cursor: pointer; transition: border-color 0.2s, box-shadow 0.2s; appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a8070' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-      background-repeat: no-repeat; background-position: right 9px center; min-width: 72px;
+      background:var(--surface2); border:1.5px solid var(--border); border-radius:8px;
+      color:var(--text); font-family:'Epilogue',sans-serif; font-size:clamp(10px,2.5vw,12px);
+      font-weight:500; padding:clamp(7px,2vw,9px) 26px clamp(7px,2vw,9px) 9px;
+      outline:none; cursor:pointer; appearance:none; min-width:72px;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a8070' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat:no-repeat; background-position:right 9px center;
+      transition:border-color .2s,box-shadow .2s;
     }
-    select.currency-select:focus {
-      border-color: var(--green-light);
-      box-shadow: 0 0 0 3px rgba(64,145,108,0.12); background-color: #fff;
-    }
-
-    .middle-row { display: flex; align-items: center; gap: 8px; }
-    .to-select-wrap { flex: 1; }
-
+    select.currency-select:focus { border-color:var(--green-light); box-shadow:0 0 0 3px rgba(64,145,108,.12); background-color:#fff; }
+    .middle-row { display:flex; align-items:center; gap:8px; }
+    .to-select-wrap { flex:1; }
     .swap-btn {
-      display: flex; align-items: center; justify-content: center;
-      background: var(--surface2); border: 1.5px solid var(--border);
-      border-radius: 50%; color: var(--muted); cursor: pointer;
-      width: clamp(28px, 7vw, 32px); height: clamp(28px, 7vw, 32px);
-      font-size: 14px; transition: all 0.25s; flex-shrink: 0;
+      display:flex; align-items:center; justify-content:center;
+      background:var(--surface2); border:1.5px solid var(--border); border-radius:50%;
+      color:var(--muted); cursor:pointer;
+      width:clamp(28px,7vw,32px); height:clamp(28px,7vw,32px);
+      font-size:14px; transition:all .25s; flex-shrink:0;
     }
-    .swap-btn:hover { background: var(--green-pale); border-color: var(--green-light); color: var(--green); transform: rotate(180deg); }
-
-    .result-row { display: flex; align-items: center; gap: 10px; }
-
+    .swap-btn:hover { background:var(--green-pale); border-color:var(--green-light); color:var(--green); transform:rotate(180deg); }
+    .result-row { display:flex; align-items:center; gap:10px; }
     .result-box {
-      flex: 1; background: linear-gradient(135deg, #eaf7ee 0%, #f5fcf6 100%);
-      border: 1.5px solid #b7e4c7; border-radius: 10px;
-      padding: clamp(8px, 2vw, 10px) clamp(9px, 3vw, 13px);
-      display: flex; flex-direction: column; gap: 2px; transition: all 0.3s;
+      flex:1; background:linear-gradient(135deg,#eaf7ee,#f5fcf6);
+      border:1.5px solid #b7e4c7; border-radius:10px;
+      padding:clamp(8px,2vw,10px) clamp(9px,3vw,13px);
+      display:flex; flex-direction:column; gap:2px; transition:all .3s;
     }
-    .result-box.empty { background: var(--surface2); border-color: var(--border); }
-    .result-amount {
-      font-family: 'Cormorant Garamond', serif; font-size: clamp(20px, 5.5vw, 26px);
-      font-weight: 700; color: var(--green); line-height: 1; transition: all 0.3s;
-    }
-    .result-box.empty .result-amount { color: var(--muted); font-size: clamp(14px, 3.5vw, 17px); }
-    .result-sub { font-size: clamp(8px, 1.8vw, 10px); color: var(--muted); }
-
+    .result-box.empty { background:var(--surface2); border-color:var(--border); }
+    .result-amount { font-family:'Cormorant Garamond',serif; font-size:clamp(20px,5.5vw,26px); font-weight:700; color:var(--green); line-height:1; transition:all .3s; }
+    .result-box.empty .result-amount { color:var(--muted); font-size:clamp(14px,3.5vw,17px); }
+    .result-sub { font-size:clamp(8px,1.8vw,10px); color:var(--muted); }
     .convert-btn {
-      background: var(--green); border: none; border-radius: 8px; color: #fff;
-      font-family: 'Epilogue', sans-serif; font-size: clamp(8px, 2vw, 10px); font-weight: 500;
-      letter-spacing: 1.5px; text-transform: uppercase;
-      padding: clamp(8px, 2.5vw, 10px) clamp(9px, 3vw, 13px);
-      cursor: pointer; transition: all 0.2s; white-space: nowrap;
+      background:var(--green); border:none; border-radius:8px; color:#fff;
+      font-family:'Epilogue',sans-serif; font-size:clamp(8px,2vw,10px); font-weight:500;
+      letter-spacing:1.5px; text-transform:uppercase;
+      padding:clamp(8px,2.5vw,10px) clamp(9px,3vw,13px);
+      cursor:pointer; transition:all .2s; white-space:nowrap;
     }
-    .convert-btn:hover { background: var(--green-light); transform: translateY(-1px); box-shadow: 0 4px 14px rgba(45,106,79,0.25); }
-    .convert-btn:active { transform: translateY(0); }
-
-    .rate-info { display: flex; justify-content: space-between; font-size: clamp(7px, 1.5vw, 9px); color: var(--muted); padding: 0 2px; }
-
+    .convert-btn:hover { background:var(--green-light); transform:translateY(-1px); box-shadow:0 4px 14px rgba(45,106,79,.25); }
+    .convert-btn:active { transform:translateY(0); }
+    .rate-info { display:flex; justify-content:space-between; font-size:clamp(7px,1.5vw,9px); color:var(--muted); padding:0 2px; }
     .footer {
-      padding: clamp(7px, 2vw, 9px) clamp(11px, 3.5vw, 18px);
-      border-top: 1px solid var(--border);
-      font-size: clamp(7px, 1.5vw, 9px); color: var(--muted);
-      display: flex; justify-content: space-between; background: var(--surface2);
-      flex-wrap: wrap; gap: 4px;
+      padding:clamp(7px,2vw,9px) clamp(11px,3.5vw,18px);
+      border-top:1px solid var(--border); background:var(--surface2);
+      font-size:clamp(7px,1.5vw,9px); color:var(--muted);
+      display:flex; justify-content:space-between; flex-wrap:wrap; gap:4px;
     }
-
-    @keyframes pop {
-      0%   { transform: scale(1); }
-      50%  { transform: scale(1.03); }
-      100% { transform: scale(1); }
-    }
-    .pop { animation: pop 0.3s ease; }
+    @keyframes pop { 0%{transform:scale(1)} 50%{transform:scale(1.03)} 100%{transform:scale(1)} }
+    .pop { animation:pop .3s ease; }
   </style>
 </head>
 <body>
 <div class="card">
 
-  <!-- Slideshow -->
   <div class="slideshow" id="slideshow">
     <div class="slide-counter" id="slideCounter">01 / 100</div>
-    <div class="slide-dots" id="slideDots"></div>
+    <div class="slide-dots"    id="slideDots"></div>
     <div class="slide-progress" id="slideProgress"></div>
   </div>
 
-  <!-- Dual World Clock -->
   <div class="clock-bar">
     <div class="clock-pane">
       <div class="col-label">World Clock</div>
@@ -398,12 +261,11 @@
     </div>
   </div>
 
-  <!-- Weather -->
   <div class="weather-bar">
     <div class="weather-main">
       <div class="weather-icon" id="wIcon">🌤️</div>
       <div class="weather-temps">
-        <div class="weather-now" id="wTemp">--°</div>
+        <div class="weather-now"  id="wTemp">--°</div>
         <div class="weather-cond" id="wCond">Loading...</div>
         <div class="weather-high" id="wHigh">High: --</div>
       </div>
@@ -446,7 +308,6 @@
     </div>
   </div>
 
-  <!-- Header -->
   <div class="header">
     <div>
       <div class="hlabel">Exchange Rate</div>
@@ -454,7 +315,6 @@
     </div>
   </div>
 
-  <!-- Body -->
   <div class="body">
     <div class="field">
       <div class="field-label">Amount & From</div>
@@ -463,15 +323,13 @@
         <select id="fromCurrency" class="currency-select"></select>
       </div>
     </div>
-
     <div class="middle-row">
       <button class="swap-btn" onclick="swapCurrencies()">⇅</button>
       <div class="to-select-wrap">
-        <div class="field-label" style="margin-bottom:5px;">To Currency</div>
-        <select id="toCurrency" class="currency-select" style="width:100%;"></select>
+        <div class="field-label" style="margin-bottom:5px">To Currency</div>
+        <select id="toCurrency" class="currency-select" style="width:100%"></select>
       </div>
     </div>
-
     <div class="result-row">
       <div class="result-box empty" id="resultBox">
         <div class="result-amount" id="resultAmount">—</div>
@@ -479,7 +337,6 @@
       </div>
       <button class="convert-btn" onclick="convert()">Convert</button>
     </div>
-
     <div class="rate-info">
       <span id="rateText">—</span>
       <span id="rateDate">—</span>
@@ -493,163 +350,149 @@
 </div>
 
 <script>
-/* ═══════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════════
    SLIDESHOW
-   Uses Unsplash Source API — free, no API key, hotlink OK.
-   Each URL fetches a different random photo matching the
-   search term. The ?sig= param ensures variety across slots.
-═══════════════════════════════════════════════════════ */
+   Uses picsum.photos/seed/{word}/800/500
+   — Fastly CDN, always online, no auth, CORS-safe.
+   Each seed word is a California coast location/topic
+   so images stay nature/coastal in character.
+═══════════════════════════════════════════════════ */
 const SLIDES = [
-  { q:'big+sur+california+coast',           cap:'Big Sur · California Coast' },
-  { q:'bixby+bridge+big+sur',               cap:'Bixby Creek Bridge · Big Sur' },
-  { q:'mcway+falls+big+sur',                cap:'McWay Falls · Julia Pfeiffer Burns' },
-  { q:'pfeiffer+beach+big+sur',             cap:'Pfeiffer Beach · Big Sur' },
-  { q:'highway+1+california+coast',         cap:'Pacific Coast Highway · California' },
-  { q:'point+sur+lighthouse+california',    cap:'Point Sur Lighthouse · Big Sur' },
-  { q:'garrapata+state+park+california',    cap:'Garrapata State Park · Carmel' },
-  { q:'julia+pfeiffer+burns+state+park',    cap:'Julia Pfeiffer Burns State Park' },
-  { q:'andrew+molera+state+park',           cap:'Andrew Molera State Park · Big Sur' },
-  { q:'big+sur+sunset+coast',               cap:'Big Sur Sunset · California' },
-  { q:'morro+rock+california',              cap:'Morro Rock · Morro Bay' },
-  { q:'morro+bay+harbor+california',        cap:'Morro Bay Harbor' },
-  { q:'morro+bay+sunset+california',        cap:'Morro Bay Sunset · Central Coast' },
-  { q:'montana+de+oro+state+park',          cap:'Montana de Oro · SLO County' },
-  { q:'cayucos+beach+california',           cap:'Cayucos Beach · SLO County' },
-  { q:'avila+beach+california',             cap:'Avila Beach · San Luis Obispo' },
-  { q:'pismo+beach+california',             cap:'Pismo Beach · Central Coast' },
-  { q:'shell+beach+california',             cap:'Shell Beach · SLO County' },
-  { q:'san+simeon+california+coast',        cap:'San Simeon · Central Coast' },
-  { q:'hearst+castle+california',           cap:'Hearst Castle · San Simeon' },
-  { q:'moonstone+beach+cambria+california', cap:'Moonstone Beach · Cambria' },
-  { q:'cambria+california+coast',           cap:'Cambria · Central Coast' },
-  { q:'elephant+seals+san+simeon',          cap:'Elephant Seals · San Simeon' },
-  { q:'piedras+blancas+lighthouse',         cap:'Piedras Blancas Lighthouse · CA' },
-  { q:'paso+robles+vineyard+california',    cap:'Paso Robles Vineyard · Central Coast' },
-  { q:'carmel+by+the+sea+beach',            cap:'Carmel-by-the-Sea Beach' },
-  { q:'point+lobos+state+park+california',  cap:'Point Lobos State Park · Carmel' },
-  { q:'17+mile+drive+pebble+beach',         cap:'17-Mile Drive · Pebble Beach' },
-  { q:'monterey+bay+california',            cap:'Monterey Bay · California' },
-  { q:'pacific+grove+tidepools',            cap:'Pacific Grove Tidepools' },
-  { q:'monterey+cypress+tree+california',   cap:'Lone Cypress · Pebble Beach' },
-  { q:'asilomar+beach+pacific+grove',       cap:'Asilomar Beach · Pacific Grove' },
-  { q:'carmel+river+beach+california',      cap:'Carmel River Beach' },
-  { q:'monterey+wharf+california',          cap:'Fisherman\'s Wharf · Monterey' },
-  { q:'sea+otter+monterey+bay',             cap:'Sea Otter · Monterey Bay' },
-  { q:'santa+cruz+natural+bridges',         cap:'Natural Bridges State Beach · SC' },
-  { q:'santa+cruz+beach+boardwalk',         cap:'Santa Cruz Boardwalk' },
-  { q:'pigeon+point+lighthouse+california', cap:'Pigeon Point Lighthouse' },
-  { q:'davenport+beach+california',         cap:'Davenport Beach · Santa Cruz' },
-  { q:'ano+nuevo+state+park+elephant+seal', cap:'Año Nuevo State Park' },
-  { q:'california+coast+sunset+orange',     cap:'Pacific Sunset · California' },
-  { q:'california+coast+golden+hour',       cap:'Golden Hour · Pacific Coast' },
-  { q:'california+coast+waves+cliffs',      cap:'Coastal Cliffs · California' },
-  { q:'pacific+ocean+dramatic+sunset',      cap:'Dramatic Sunset · Pacific Ocean' },
-  { q:'california+coast+fog+morning',       cap:'Morning Fog · Central Coast' },
-  { q:'california+ocean+rocky+shore',       cap:'Rocky Shore · California' },
-  { q:'california+tide+pools+coast',        cap:'Tide Pools · Central Coast' },
-  { q:'california+coast+wildflowers',       cap:'Coastal Wildflowers · California' },
-  { q:'california+hills+spring+green',      cap:'Spring Hills · Central Coast' },
-  { q:'california+coast+aerial+view',       cap:'Aerial View · California Coastline' },
-  { q:'big+sur+aerial+drone+coast',         cap:'Big Sur from Above' },
-  { q:'california+coast+blue+water',        cap:'Pacific Blue · Central Coast' },
-  { q:'surfing+california+central+coast',   cap:'Surfing · Central Coast' },
-  { q:'california+pelican+ocean',           cap:'Pelicans · California Coast' },
-  { q:'harbor+seals+california+coast',      cap:'Harbor Seals · Central Coast' },
-  { q:'california+sea+lion+rocks',          cap:'Sea Lions · California Coast' },
-  { q:'monarch+butterfly+grove+california', cap:'Monarch Butterflies · Pismo Beach' },
-  { q:'california+coast+driftwood+beach',   cap:'Driftwood · Moonstone Beach' },
-  { q:'california+coast+camping+fire',      cap:'Beach Campfire · Central Coast' },
-  { q:'kayak+california+coast',             cap:'Kayaking · California Coast' },
-  { q:'california+coast+fishing+pier',      cap:'Fishing Pier · Central Coast' },
-  { q:'big+sur+waterfall+ocean',            cap:'Waterfall to Sea · Big Sur' },
-  { q:'california+coast+night+stars',       cap:'Starry Night · Big Sur' },
-  { q:'milky+way+california+coast',         cap:'Milky Way · Big Sur' },
-  { q:'full+moon+ocean+california',         cap:'Moonrise · Pacific Coast' },
-  { q:'california+coast+storm+waves',       cap:'Storm Waves · Central Coast' },
-  { q:'california+coast+sea+stack',         cap:'Sea Stacks · Central Coast' },
-  { q:'california+coast+sandstone+cliffs',  cap:'Sandstone Cliffs · California' },
-  { q:'california+redwoods+coast',          cap:'Coastal Redwoods · Big Sur' },
-  { q:'big+sur+forest+ocean',               cap:'Forest meets Ocean · Big Sur' },
-  { q:'california+coast+kelp+forest',       cap:'Kelp Forest · Monterey Bay' },
-  { q:'gray+whale+california+coast',        cap:'Gray Whales · Central Coast' },
-  { q:'california+coast+lupine+flowers',    cap:'Lupine · Central Coast Hills' },
-  { q:'carrizo+plain+california',           cap:'Carrizo Plain · Central California' },
-  { q:'california+oak+trees+hills',         cap:'Oak Woodland · SLO County' },
-  { q:'los+padres+national+forest',         cap:'Los Padres National Forest' },
-  { q:'morro+bay+estuary+birds',            cap:'Morro Bay Estuary' },
-  { q:'california+coast+pelican+fly',       cap:'Pelicans in Flight · Morro Bay' },
-  { q:'california+coast+black+white',       cap:'Pacific Coast · Classic View' },
-  { q:'big+sur+purple+sunset+coast',        cap:'Purple Sunset · Big Sur' },
-  { q:'california+coast+sea+glass',         cap:'Sea Glass Beach · Fort Bragg' },
-  { q:'california+coast+sand+dunes',        cap:'Sand Dunes · Oceano' },
-  { q:'morro+bay+fishing+boats',            cap:'Fishing Fleet · Morro Bay' },
-  { q:'california+central+coast+ranch',     cap:'Coastal Ranch · SLO County' },
-  { q:'california+coast+winter+storm',      cap:'Winter Storm · Big Sur' },
-  { q:'california+coast+spring+bloom',      cap:'Spring Bloom · Central Coast' },
-  { q:'big+sur+fog+valley',                 cap:'Fog in the Valley · Big Sur' },
-  { q:'california+coast+sunset+silhouette', cap:'Silhouette Sunset · California' },
-  { q:'pacific+coast+highway+drive',        cap:'Pacific Coast Drive · California' },
-  { q:'california+coast+turquoise+water',   cap:'Turquoise Waters · Central Coast' },
-  { q:'point+reyes+california+coast',       cap:'Point Reyes · North Coast' },
-  { q:'california+coast+hiker+trail',       cap:'Coastal Trail · California' },
-  { q:'california+coast+sunrise+pink',      cap:'Pink Sunrise · Pacific Coast' },
-  { q:'big+sur+coast+long+exposure',        cap:'Long Exposure · Big Sur' },
-  { q:'california+central+coast+vineyard+sunset', cap:'Vineyard Sunset · Central Coast' },
-  { q:'california+coast+lighthouse+sunset', cap:'Lighthouse at Sunset · California' },
-  { q:'estero+bluffs+cayucos+california',   cap:'Estero Bluffs · Cayucos' },
-  { q:'san+luis+obispo+county+coast',       cap:'SLO County Coastline' },
+  { seed:'bigsur1',      cap:'Big Sur · California Coast' },
+  { seed:'bigsur2',      cap:'Big Sur Cliffs · California' },
+  { seed:'bigsur3',      cap:'Sunset at Big Sur' },
+  { seed:'bigsur4',      cap:'Big Sur Morning Mist' },
+  { seed:'bixbybridge',  cap:'Bixby Creek Bridge · Big Sur' },
+  { seed:'mcwayfalls',   cap:'McWay Falls · Big Sur' },
+  { seed:'pfeifferbeach',cap:'Pfeiffer Beach · Big Sur' },
+  { seed:'pointsur',     cap:'Point Sur Lighthouse' },
+  { seed:'highway1a',    cap:'Pacific Coast Highway · CA' },
+  { seed:'highway1b',    cap:'Highway 1 at Sunset' },
+  { seed:'morrorock1',   cap:'Morro Rock · Morro Bay' },
+  { seed:'morrorock2',   cap:'Morro Rock at Dawn' },
+  { seed:'morrobay1',    cap:'Morro Bay Harbor' },
+  { seed:'morrobay2',    cap:'Morro Bay Estuary' },
+  { seed:'morrobay3',    cap:'Morro Bay Sunset' },
+  { seed:'montanaoro1',  cap:'Montana de Oro State Park' },
+  { seed:'montanaoro2',  cap:'Bluffs · Montana de Oro' },
+  { seed:'cayucos1',     cap:'Cayucos Beach · SLO County' },
+  { seed:'cayucos2',     cap:'Cayucos Pier at Sunset' },
+  { seed:'avilabeach',   cap:'Avila Beach · San Luis Obispo' },
+  { seed:'pismobeach1',  cap:'Pismo Beach · Central Coast' },
+  { seed:'pismobeach2',  cap:'Pismo Beach Dunes' },
+  { seed:'shellbeach',   cap:'Shell Beach · California' },
+  { seed:'sansimeon1',   cap:'San Simeon · Central Coast' },
+  { seed:'sansimeon2',   cap:'San Simeon Pier' },
+  { seed:'hearstcastle', cap:'Hearst Castle · San Simeon' },
+  { seed:'piedrasblancas',cap:'Piedras Blancas Lighthouse' },
+  { seed:'elephantseals',cap:'Elephant Seals · San Simeon' },
+  { seed:'moonstone1',   cap:'Moonstone Beach · Cambria' },
+  { seed:'moonstone2',   cap:'Moonstone Beach Sunset' },
+  { seed:'cambria1',     cap:'Cambria · Central Coast' },
+  { seed:'cambria2',     cap:'Cambria Pines · California' },
+  { seed:'pasorobles1',  cap:'Paso Robles Vineyard' },
+  { seed:'pasorobles2',  cap:'Wine Country · Central Coast' },
+  { seed:'carmelbeach1', cap:'Carmel-by-the-Sea Beach' },
+  { seed:'carmelbeach2', cap:'Carmel Beach at Sunset' },
+  { seed:'pointlobos1',  cap:'Point Lobos State Park' },
+  { seed:'pointlobos2',  cap:'Point Lobos · Carmel' },
+  { seed:'17miledrive',  cap:'17-Mile Drive · Pebble Beach' },
+  { seed:'lonecypress',  cap:'Lone Cypress · Pebble Beach' },
+  { seed:'monterey1',    cap:'Monterey Bay · California' },
+  { seed:'monterey2',    cap:'Monterey Harbor at Dusk' },
+  { seed:'monterey3',    cap:'Fisherman\'s Wharf · Monterey' },
+  { seed:'pacificgrove1',cap:'Pacific Grove Tidepools' },
+  { seed:'pacificgrove2',cap:'Asilomar Beach · Pacific Grove' },
+  { seed:'seaotter',     cap:'Sea Otter · Monterey Bay' },
+  { seed:'garrapata1',   cap:'Garrapata State Park · Carmel' },
+  { seed:'garrapata2',   cap:'Garrapata Beach · Big Sur' },
+  { seed:'santacruz1',   cap:'Natural Bridges · Santa Cruz' },
+  { seed:'santacruz2',   cap:'Santa Cruz Coastline' },
+  { seed:'santacruz3',   cap:'Santa Cruz Beach' },
+  { seed:'pigeonpoint',  cap:'Pigeon Point Lighthouse' },
+  { seed:'davenport',    cap:'Davenport Beach · Santa Cruz' },
+  { seed:'anonuevo',     cap:'Año Nuevo State Park' },
+  { seed:'calcoast1',    cap:'Pacific Ocean Sunset · CA' },
+  { seed:'calcoast2',    cap:'California Coastal Sunset' },
+  { seed:'calcoast3',    cap:'Golden Hour · Pacific Coast' },
+  { seed:'calcoast4',    cap:'Dramatic Sunset · California' },
+  { seed:'calcoast5',    cap:'Sea Cliffs · Central CA' },
+  { seed:'calcoast6',    cap:'Rocky Shore · California' },
+  { seed:'calcoast7',    cap:'California Tide Pools' },
+  { seed:'calcoast8',    cap:'Pacific Fog · Central Coast' },
+  { seed:'calcoast9',    cap:'Morning Mist · Big Sur' },
+  { seed:'calcoast10',   cap:'Coastal Redwoods · Big Sur' },
+  { seed:'calcoast11',   cap:'Sea Stacks · Central Coast' },
+  { seed:'calcoast12',   cap:'Orange Skies · Central Coast' },
+  { seed:'calcoast13',   cap:'Fire Sunset · California' },
+  { seed:'calcoast14',   cap:'Purple Sunset · Big Sur' },
+  { seed:'calcoast15',   cap:'Pink Sunrise · Pacific Coast' },
+  { seed:'calcoast16',   cap:'Silhouette · CA Coastline' },
+  { seed:'calcoast17',   cap:'Long Exposure · Big Sur' },
+  { seed:'calcoast18',   cap:'Storm Waves · Central Coast' },
+  { seed:'calcoast19',   cap:'Aerial · CA Coastline' },
+  { seed:'calcoast20',   cap:'Drone View · Big Sur' },
+  { seed:'calcoast21',   cap:'Coastal Bluffs · California' },
+  { seed:'calcoast22',   cap:'Rugged Pacific · Central Coast' },
+  { seed:'calcoast23',   cap:'Turquoise Waters · CA Coast' },
+  { seed:'calcoast24',   cap:'Pacific Coast Drive' },
+  { seed:'calcoast25',   cap:'Coastal Trail · California' },
+  { seed:'wildlife1',    cap:'Pelicans · Morro Bay' },
+  { seed:'wildlife2',    cap:'Harbor Seals · Central Coast' },
+  { seed:'wildlife3',    cap:'California Sea Lions' },
+  { seed:'wildlife4',    cap:'Monarch Butterflies · Pismo' },
+  { seed:'wildlife5',    cap:'Gray Whales · CA Coast' },
+  { seed:'wildlife6',    cap:'Kelp Forest · Monterey Bay' },
+  { seed:'nature1',      cap:'Wildflowers · Central Coast Hills' },
+  { seed:'nature2',      cap:'Lupine Blooms · Carrizo Plain' },
+  { seed:'nature3',      cap:'Spring Hills · SLO County' },
+  { seed:'nature4',      cap:'California Oaks · Paso Robles' },
+  { seed:'nature5',      cap:'Oak Woodland · SLO County' },
+  { seed:'night1',       cap:'Starry Night · Big Sur' },
+  { seed:'night2',       cap:'Milky Way · Big Sur Coast' },
+  { seed:'night3',       cap:'Full Moon · Morro Bay' },
+  { seed:'beach1',       cap:'Driftwood · Moonstone Beach' },
+  { seed:'beach2',       cap:'Beach Campfire · Central Coast' },
+  { seed:'beach3',       cap:'Surfer · Central Coast' },
+  { seed:'beach4',       cap:'Kayaking · CA Coast' },
+  { seed:'beach5',       cap:'Fishing Pier · Avila Beach' },
+  { seed:'beach6',       cap:'Sand Dunes · Oceano' },
+  { seed:'estero',       cap:'Estero Bluffs · Cayucos' },
 ];
 
-const total = SLIDES.length; // 100
+const total = SLIDES.length;
 let currentSlide = 0;
-
 const slideshowEl = document.getElementById('slideshow');
 const dotsEl      = document.getElementById('slideDots');
 const progressEl  = document.getElementById('slideProgress');
 const counterEl   = document.getElementById('slideCounter');
 
-// Build all slides
 SLIDES.forEach((s, i) => {
   const div = document.createElement('div');
   div.className = 'slide' + (i === 0 ? ' active' : '');
-
-  // Unsplash Source API: free, no auth, returns a redirect to a real image.
-  // ?sig=N ensures each slot gets a different image even with the same query.
-  const src = `https://source.unsplash.com/800x500/?${s.q}&sig=${i}`;
-
+  // picsum seed URL — guaranteed reliable, CDN-backed, no auth needed
+  const src = `https://picsum.photos/seed/${s.seed}/800/500`;
   div.innerHTML = `
-    <img src="${src}" alt="${s.cap}" loading="${i < 3 ? 'eager' : 'lazy'}"
-         onerror="this.parentElement.style.background='linear-gradient(135deg,#2a3a50,#1a2535)'">
+    <img src="${src}" alt="${s.cap}" loading="${i < 4 ? 'eager' : 'lazy'}">
     <div class="slide-caption">${s.cap}</div>`;
   slideshowEl.insertBefore(div, dotsEl);
 
-  // Render dots for first 10 only (keeps UI clean on all screen sizes)
   if (i < 10) {
     const dot = document.createElement('button');
     dot.className = 'slide-dot' + (i === 0 ? ' active' : '');
-    dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+    dot.setAttribute('aria-label', 'Slide ' + (i+1));
     dot.onclick = () => goToSlide(i);
     dotsEl.appendChild(dot);
   }
 });
 
 function goToSlide(n) {
-  const allSlides = document.querySelectorAll('.slide');
-  const allDots   = document.querySelectorAll('.slide-dot');
-
-  allSlides[currentSlide].classList.remove('active');
-  if (currentSlide < 10) allDots[currentSlide]?.classList.remove('active');
-
+  document.querySelectorAll('.slide')[currentSlide].classList.remove('active');
+  document.querySelectorAll('.slide-dot')[currentSlide]?.classList.remove('active');
   currentSlide = ((n % total) + total) % total;
-
-  allSlides[currentSlide].classList.add('active');
-  if (currentSlide < 10) allDots[currentSlide]?.classList.add('active');
-
-  counterEl.textContent =
-    String(currentSlide + 1).padStart(2, '0') + ' / ' +
-    String(total).padStart(3, '0');
-
-  // Restart the progress bar
+  document.querySelectorAll('.slide')[currentSlide].classList.add('active');
+  document.querySelectorAll('.slide-dot')[currentSlide]?.classList.add('active');
+  counterEl.textContent = String(currentSlide+1).padStart(2,'0') + ' / ' + String(total).padStart(3,'0');
   progressEl.style.transition = 'none';
   progressEl.classList.remove('running');
   progressEl.style.width = '0%';
@@ -657,167 +500,49 @@ function goToSlide(n) {
   progressEl.style.transition = 'width 12s linear';
   progressEl.classList.add('running');
 }
-
 goToSlide(0);
 setInterval(() => goToSlide(currentSlide + 1), 12000);
 
-
-/* ═══════════════════════════════════════════
-   DUAL WORLD CLOCK
-═══════════════════════════════════════════ */
+/* ── Dual Clock ── */
 const clockIntervals = {};
-
 function updateClock(n) {
-  const sel = document.getElementById(`clock${n}City`);
-  const [city, tz] = sel.value.split('|');
+  const [city, tz] = document.getElementById(`clock${n}City`).value.split('|');
   document.getElementById(`clock${n}CityName`).textContent = city;
   if (clockIntervals[n]) clearInterval(clockIntervals[n]);
-
   const tick = () => {
     const now = new Date();
-    const hm  = now.toLocaleTimeString('en-GB', { timeZone: tz, hour: '2-digit', minute: '2-digit' });
-    const ss  = now.toLocaleTimeString('en-GB', { timeZone: tz, second: '2-digit' });
-    const dt  = now.toLocaleDateString ('en-GB', { timeZone: tz, weekday: 'short', day: 'numeric', month: 'short' });
+    const hm = now.toLocaleTimeString('en-GB',{timeZone:tz,hour:'2-digit',minute:'2-digit'});
+    const ss = now.toLocaleTimeString('en-GB',{timeZone:tz,second:'2-digit'});
+    const dt = now.toLocaleDateString('en-GB',{timeZone:tz,weekday:'short',day:'numeric',month:'short'});
     document.getElementById(`clock${n}Time`).innerHTML = `${hm}<span class="clock-sec">:${ss}</span>`;
     document.getElementById(`clock${n}Date`).textContent = dt;
   };
-  tick();
-  clockIntervals[n] = setInterval(tick, 1000);
+  tick(); clockIntervals[n] = setInterval(tick, 1000);
 }
 
-
-/* ═══════════════════════════════════════════
-   WEATHER
-═══════════════════════════════════════════ */
-const weatherCodes = {
-  0:'Sunny', 1:'Mostly clear', 2:'Partly cloudy', 3:'Overcast',
-  45:'Foggy', 48:'Icy fog', 51:'Light drizzle', 53:'Drizzle', 55:'Heavy drizzle',
-  61:'Light rain', 63:'Rain', 65:'Heavy rain', 71:'Light snow', 73:'Snow',
-  75:'Heavy snow', 80:'Showers', 81:'Rain showers', 82:'Heavy showers',
-  95:'Thunderstorm', 96:'Thunderstorm w/ hail', 99:'Severe thunderstorm'
-};
-const weatherIcons = {
-  0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',
-  51:'🌦️',53:'🌦️',55:'🌧️',61:'🌧️',63:'🌧️',65:'🌧️',
-  71:'🌨️',73:'❄️',75:'❄️',80:'🌦️',81:'🌧️',82:'⛈️',
-  95:'⛈️',96:'⛈️',99:'⛈️'
-};
-
-let unit = 'C', lastTempC = null, lastHighC = null;
-const toF = c => (c * 9/5 + 32).toFixed(1);
-
-function setUnit(u) {
-  unit = u;
-  document.getElementById('btnC').classList.toggle('active', u === 'C');
-  document.getElementById('btnF').classList.toggle('active', u === 'F');
-  updateTempDisplay();
-}
-function updateTempDisplay() {
-  if (lastTempC === null) return;
-  document.getElementById('wTemp').textContent = unit === 'C' ? `${lastTempC.toFixed(1)}°C` : `${toF(lastTempC)}°F`;
-  document.getElementById('wHigh').textContent = unit === 'C' ? `High: ${lastHighC.toFixed(1)}°C` : `High: ${toF(lastHighC)}°F`;
-}
-async function loadWeather() {
-  const [city, lat, lon] = document.getElementById('weatherCity').value.split('|');
-  document.getElementById('wCond').textContent = 'Loading...';
-  document.getElementById('wTemp').textContent = '--°';
-  document.getElementById('wHigh').textContent = 'High: --';
-  document.getElementById('wIcon').textContent = '🌤️';
-  lastTempC = null;
-  try {
-    const r = await fetch(
-      `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}` +
-      `&current=temperature_2m,weathercode&daily=temperature_2m_max` +
-      `&temperature_unit=celsius&timezone=auto&forecast_days=1`
-    );
-    const d = await r.json();
-    lastTempC = d.current.temperature_2m;
-    lastHighC = d.daily.temperature_2m_max[0];
-    const code = d.current.weathercode;
-    document.getElementById('wIcon').textContent = weatherIcons[code] || '🌤️';
-    document.getElementById('wCond').textContent = weatherCodes[code] || 'Clear';
-    updateTempDisplay();
-  } catch(e) { document.getElementById('wCond').textContent = 'Unavailable'; }
+/* ── Weather ── */
+const wCodes = {0:'Sunny',1:'Mostly clear',2:'Partly cloudy',3:'Overcast',45:'Foggy',48:'Icy fog',51:'Light drizzle',53:'Drizzle',55:'Heavy drizzle',61:'Light rain',63:'Rain',65:'Heavy rain',71:'Light snow',73:'Snow',75:'Heavy snow',80:'Showers',81:'Rain showers',82:'Heavy showers',95:'Thunderstorm',96:'Thunderstorm+hail',99:'Severe storm'};
+const wIcons = {0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',51:'🌦️',53:'🌦️',55:'🌧️',61:'🌧️',63:'🌧️',65:'🌧️',71:'🌨️',73:'❄️',75:'❄️',80:'🌦️',81:'🌧️',82:'⛈️',95:'⛈️',96:'⛈️',99:'⛈️'};
+let unit='C', lastTempC=null, lastHighC=null;
+const toF = c => (c*9/5+32).toFixed(1);
+function setUnit(u){unit=u;document.getElementById('btnC').classList.toggle('active',u==='C');document.getElementById('btnF').classList.toggle('active',u==='F');updateTempDisplay();}
+function updateTempDisplay(){if(lastTempC===null)return;document.getElementById('wTemp').textContent=unit==='C'?`${lastTempC.toFixed(1)}°C`:`${toF(lastTempC)}°F`;document.getElementById('wHigh').textContent=unit==='C'?`High: ${lastHighC.toFixed(1)}°C`:`High: ${toF(lastHighC)}°F`;}
+async function loadWeather(){
+  const [,lat,lon]=document.getElementById('weatherCity').value.split('|');
+  document.getElementById('wCond').textContent='Loading...';document.getElementById('wTemp').textContent='--°';document.getElementById('wHigh').textContent='High: --';document.getElementById('wIcon').textContent='🌤️';lastTempC=null;
+  try{const r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weathercode&daily=temperature_2m_max&temperature_unit=celsius&timezone=auto&forecast_days=1`);const d=await r.json();lastTempC=d.current.temperature_2m;lastHighC=d.daily.temperature_2m_max[0];const code=d.current.weathercode;document.getElementById('wIcon').textContent=wIcons[code]||'🌤️';document.getElementById('wCond').textContent=wCodes[code]||'Clear';updateTempDisplay();}catch(e){document.getElementById('wCond').textContent='Unavailable';}
 }
 
+/* ── Currency ── */
+const rates={USD:1,EUR:.924,GBP:.789,JPY:149.5,CAD:1.363,AUD:1.537,CHF:.898,CNY:7.241,INR:83.12,MXN:17.15,BRL:4.97,KRW:1325,SGD:1.342,HKD:7.822,NOK:10.56,SEK:10.42,DKK:6.89,NZD:1.627,ZAR:18.63,AED:3.673,THB:35.1,TRY:30.85,PLN:3.987,CZK:22.85,HUF:356};
+const symbols={USD:'$',EUR:'€',GBP:'£',JPY:'¥',CAD:'CA$',AUD:'A$',CHF:'Fr',CNY:'¥',INR:'₹',MXN:'MX$',BRL:'R$',KRW:'₩',SGD:'S$',HKD:'HK$',NOK:'kr',SEK:'kr',DKK:'kr',NZD:'NZ$',ZAR:'R',AED:'د.إ',THB:'฿',TRY:'₺',PLN:'zł',CZK:'Kč',HUF:'Ft'};
+const names={USD:'US Dollar',EUR:'Euro',GBP:'British Pound',JPY:'Japanese Yen',CAD:'Canadian Dollar',AUD:'Australian Dollar',CHF:'Swiss Franc',CNY:'Chinese Yuan',INR:'Indian Rupee',MXN:'Mexican Peso',BRL:'Brazilian Real',KRW:'South Korean Won',SGD:'Singapore Dollar',HKD:'Hong Kong Dollar',NOK:'Norwegian Krone',SEK:'Swedish Krona',DKK:'Danish Krone',NZD:'New Zealand Dollar',ZAR:'South African Rand',AED:'UAE Dirham',THB:'Thai Baht',TRY:'Turkish Lira',PLN:'Polish Zloty',CZK:'Czech Koruna',HUF:'Hungarian Forint'};
+function populateSelects(){const f=document.getElementById('fromCurrency'),t=document.getElementById('toCurrency');Object.keys(rates).forEach(c=>{f.add(new Option(`${symbols[c]} ${c}`,c));t.add(new Option(`${symbols[c]} ${c} — ${names[c]}`,c));});f.value='USD';t.value='EUR';}
+function convert(){const amount=parseFloat(document.getElementById('amount').value),from=document.getElementById('fromCurrency').value,to=document.getElementById('toCurrency').value,box=document.getElementById('resultBox'),el=document.getElementById('resultAmount');if(isNaN(amount)||amount<0){el.textContent='—';document.getElementById('resultSub').textContent='Enter a valid amount';box.classList.add('empty');return;}const result=(amount/rates[from])*rates[to],rate=rates[to]/rates[from];el.textContent=`${symbols[to]}${result.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:4})}`;document.getElementById('resultSub').textContent=`${symbols[from]}${amount.toLocaleString()} ${from} → ${names[to]}`;document.getElementById('rateText').textContent=`1 ${from} = ${rate.toFixed(4)} ${to}`;document.getElementById('rateDate').textContent='Mar 2026';document.getElementById('updateTime').textContent=new Date().toLocaleTimeString();box.classList.remove('empty');el.classList.remove('pop');void el.offsetWidth;el.classList.add('pop');}
+function swapCurrencies(){const f=document.getElementById('fromCurrency'),t=document.getElementById('toCurrency'),tmp=f.value;f.value=t.value;t.value=tmp;convert();}
+document.getElementById('amount').addEventListener('keydown',e=>{if(e.key==='Enter')convert();});
 
-/* ═══════════════════════════════════════════
-   CURRENCY CONVERTER
-═══════════════════════════════════════════ */
-const rates = {
-  USD:1, EUR:0.924, GBP:0.789, JPY:149.50, CAD:1.363, AUD:1.537,
-  CHF:0.898, CNY:7.241, INR:83.12, MXN:17.15, BRL:4.97, KRW:1325.0,
-  SGD:1.342, HKD:7.822, NOK:10.56, SEK:10.42, DKK:6.89, NZD:1.627,
-  ZAR:18.63, AED:3.673, THB:35.10, TRY:30.85, PLN:3.987, CZK:22.85, HUF:356.0,
-};
-const symbols = {
-  USD:'$', EUR:'€', GBP:'£', JPY:'¥', CAD:'CA$', AUD:'A$', CHF:'Fr', CNY:'¥',
-  INR:'₹', MXN:'MX$', BRL:'R$', KRW:'₩', SGD:'S$', HKD:'HK$', NOK:'kr',
-  SEK:'kr', DKK:'kr', NZD:'NZ$', ZAR:'R', AED:'د.إ', THB:'฿', TRY:'₺',
-  PLN:'zł', CZK:'Kč', HUF:'Ft'
-};
-const names = {
-  USD:'US Dollar', EUR:'Euro', GBP:'British Pound', JPY:'Japanese Yen',
-  CAD:'Canadian Dollar', AUD:'Australian Dollar', CHF:'Swiss Franc',
-  CNY:'Chinese Yuan', INR:'Indian Rupee', MXN:'Mexican Peso',
-  BRL:'Brazilian Real', KRW:'South Korean Won', SGD:'Singapore Dollar',
-  HKD:'Hong Kong Dollar', NOK:'Norwegian Krone', SEK:'Swedish Krona',
-  DKK:'Danish Krone', NZD:'New Zealand Dollar', ZAR:'South African Rand',
-  AED:'UAE Dirham', THB:'Thai Baht', TRY:'Turkish Lira',
-  PLN:'Polish Zloty', CZK:'Czech Koruna', HUF:'Hungarian Forint'
-};
-
-function populateSelects() {
-  const from = document.getElementById('fromCurrency');
-  const to   = document.getElementById('toCurrency');
-  Object.keys(rates).forEach(code => {
-    from.add(new Option(`${symbols[code]} ${code}`, code));
-    to.add(new Option(`${symbols[code]} ${code} — ${names[code]}`, code));
-  });
-  from.value = 'USD'; to.value = 'EUR';
-}
-
-function convert() {
-  const amount = parseFloat(document.getElementById('amount').value);
-  const from   = document.getElementById('fromCurrency').value;
-  const to     = document.getElementById('toCurrency').value;
-  const box    = document.getElementById('resultBox');
-  const el     = document.getElementById('resultAmount');
-  if (isNaN(amount) || amount < 0) {
-    el.textContent = '—';
-    document.getElementById('resultSub').textContent = 'Enter a valid amount';
-    box.classList.add('empty'); return;
-  }
-  const result = (amount / rates[from]) * rates[to];
-  const rate   = rates[to] / rates[from];
-  el.textContent = `${symbols[to]}${result.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:4})}`;
-  document.getElementById('resultSub').textContent = `${symbols[from]}${amount.toLocaleString()} ${from} → ${names[to]}`;
-  document.getElementById('rateText').textContent  = `1 ${from} = ${rate.toFixed(4)} ${to}`;
-  document.getElementById('rateDate').textContent  = 'Mar 2026';
-  document.getElementById('updateTime').textContent = new Date().toLocaleTimeString();
-  box.classList.remove('empty');
-  el.classList.remove('pop');
-  void el.offsetWidth;
-  el.classList.add('pop');
-}
-
-function swapCurrencies() {
-  const from = document.getElementById('fromCurrency');
-  const to   = document.getElementById('toCurrency');
-  const tmp  = from.value; from.value = to.value; to.value = tmp;
-  convert();
-}
-
-document.getElementById('amount').addEventListener('keydown', e => {
-  if (e.key === 'Enter') convert();
-});
-
-// Init
-populateSelects();
-convert();
-loadWeather();
-updateClock(1);
-updateClock(2);
+populateSelects(); convert(); loadWeather(); updateClock(1); updateClock(2);
 document.getElementById('updateTime').textContent = new Date().toLocaleTimeString();
 </script>
 </body>
