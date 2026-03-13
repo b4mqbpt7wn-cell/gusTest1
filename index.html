@@ -4,23 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Currency Converter</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Epilogue:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0a0a0f;
-      --surface: #13131a;
-      --border: #2a2a3a;
-      --gold: #c9a84c;
-      --gold-light: #e8c97a;
-      --text: #f0ede6;
-      --muted: #6b6880;
-      --accent: #4a3f8a;
+      --bg: #f5f0e8;
+      --surface: #fffdf8;
+      --surface2: #f0ebe0;
+      --border: #ddd5c0;
+      --green: #2d6a4f;
+      --green-light: #40916c;
+      --green-pale: #d8f3dc;
+      --text: #1a1a14;
+      --muted: #8a8070;
+      --accent: #b7935a;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      font-family: 'DM Mono', monospace;
+      font-family: 'Epilogue', sans-serif;
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
@@ -29,29 +31,29 @@
       justify-content: center;
       padding: 20px;
       background-image:
-        radial-gradient(ellipse at 20% 50%, rgba(74,63,138,0.15) 0%, transparent 60%),
-        radial-gradient(ellipse at 80% 20%, rgba(201,168,76,0.08) 0%, transparent 50%);
+        radial-gradient(ellipse at 10% 90%, rgba(45,106,79,0.08) 0%, transparent 55%),
+        radial-gradient(ellipse at 90% 10%, rgba(183,147,90,0.10) 0%, transparent 50%);
     }
 
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 4px;
+      border-radius: 16px;
       width: 100%;
-      max-width: 480px;
+      max-width: 460px;
       overflow: hidden;
-      box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(201,168,76,0.05);
-      animation: fadeUp 0.6s ease both;
+      box-shadow: 0 8px 40px rgba(45,106,79,0.08), 0 2px 8px rgba(0,0,0,0.06);
+      animation: fadeUp 0.5s ease both;
     }
 
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(30px); }
+      from { opacity: 0; transform: translateY(24px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
     .header {
-      padding: 32px 36px 24px;
-      border-bottom: 1px solid var(--border);
+      padding: 32px 36px 28px;
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-light) 100%);
       position: relative;
       overflow: hidden;
     }
@@ -59,11 +61,11 @@
     .header::before {
       content: '¥€£$';
       position: absolute;
-      right: -10px;
-      top: -10px;
-      font-size: 72px;
-      font-family: 'Playfair Display', serif;
-      color: rgba(201,168,76,0.06);
+      right: -8px;
+      bottom: -16px;
+      font-size: 80px;
+      font-family: 'Cormorant Garamond', serif;
+      color: rgba(255,255,255,0.08);
       letter-spacing: -4px;
       pointer-events: none;
     }
@@ -72,29 +74,29 @@
       font-size: 10px;
       letter-spacing: 3px;
       text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 8px;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 6px;
     }
 
     h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 28px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px;
       font-weight: 700;
-      color: var(--text);
+      color: #fff;
       line-height: 1.1;
     }
 
     .body {
-      padding: 32px 36px;
+      padding: 30px 36px;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 18px;
     }
 
     .field {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 7px;
     }
 
     .field-label {
@@ -102,25 +104,26 @@
       letter-spacing: 2px;
       text-transform: uppercase;
       color: var(--muted);
+      font-weight: 500;
     }
 
     .input-row {
       display: flex;
-      gap: 10px;
+      gap: 8px;
     }
 
     input[type="number"] {
       flex: 1;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 3px;
+      background: var(--surface2);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
       color: var(--text);
-      font-family: 'DM Mono', monospace;
-      font-size: 20px;
+      font-family: 'Epilogue', sans-serif;
+      font-size: 22px;
       font-weight: 500;
-      padding: 14px 16px;
+      padding: 13px 16px;
       outline: none;
-      transition: border-color 0.2s;
+      transition: border-color 0.2s, box-shadow 0.2s;
       -moz-appearance: textfield;
     }
 
@@ -128,170 +131,158 @@
     input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
 
     input[type="number"]:focus {
-      border-color: var(--gold);
+      border-color: var(--green-light);
+      box-shadow: 0 0 0 3px rgba(64,145,108,0.12);
+      background: #fff;
     }
 
     select {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 3px;
+      background: var(--surface2);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
       color: var(--text);
-      font-family: 'DM Mono', monospace;
+      font-family: 'Epilogue', sans-serif;
       font-size: 13px;
-      padding: 14px 12px;
+      font-weight: 500;
+      padding: 13px 32px 13px 12px;
       outline: none;
       cursor: pointer;
-      transition: border-color 0.2s;
+      transition: border-color 0.2s, box-shadow 0.2s;
       appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b6880' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a8070' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
       background-position: right 12px center;
-      padding-right: 32px;
-      min-width: 90px;
+      min-width: 85px;
     }
 
-    select:focus { border-color: var(--gold); }
-
-    .swap-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: none;
-      border: 1px solid var(--border);
-      border-radius: 3px;
-      color: var(--muted);
-      cursor: pointer;
-      padding: 0 14px;
-      font-size: 18px;
-      transition: all 0.2s;
-      align-self: flex-end;
-      height: 52px;
+    select:focus {
+      border-color: var(--green-light);
+      box-shadow: 0 0 0 3px rgba(64,145,108,0.12);
+      background-color: #fff;
     }
 
-    .swap-btn:hover {
-      border-color: var(--gold);
-      color: var(--gold);
-      transform: rotate(180deg);
-    }
-
-    .divider {
+    .swap-row {
       display: flex;
       align-items: center;
       gap: 12px;
-      color: var(--muted);
-      font-size: 10px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
     }
 
-    .divider::before, .divider::after {
-      content: '';
+    .divider {
       flex: 1;
       height: 1px;
       background: var(--border);
     }
 
+    .swap-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--surface2);
+      border: 1.5px solid var(--border);
+      border-radius: 50%;
+      color: var(--muted);
+      cursor: pointer;
+      width: 36px;
+      height: 36px;
+      font-size: 16px;
+      transition: all 0.25s;
+      flex-shrink: 0;
+    }
+
+    .swap-btn:hover {
+      background: var(--green-pale);
+      border-color: var(--green-light);
+      color: var(--green);
+      transform: rotate(180deg);
+    }
+
     .result-box {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 3px;
-      padding: 20px 20px;
+      background: linear-gradient(135deg, #eaf7ee 0%, #f5fcf6 100%);
+      border: 1.5px solid #b7e4c7;
+      border-radius: 12px;
+      padding: 20px 22px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      min-height: 90px;
+      gap: 5px;
+      min-height: 88px;
       justify-content: center;
-      position: relative;
-      overflow: hidden;
-      transition: border-color 0.3s;
+      transition: all 0.3s;
     }
 
-    .result-box.has-result {
-      border-color: rgba(201,168,76,0.3);
+    .result-box.empty {
+      background: var(--surface2);
+      border-color: var(--border);
     }
-
-    .result-box::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
-      opacity: 0;
-      transition: opacity 0.4s;
-    }
-
-    .result-box.has-result::after { opacity: 1; }
 
     .result-amount {
-      font-family: 'Playfair Display', serif;
-      font-size: 36px;
-      color: var(--gold-light);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 38px;
+      font-weight: 700;
+      color: var(--green);
       line-height: 1;
       transition: all 0.3s;
+    }
+
+    .result-box.empty .result-amount {
+      color: var(--muted);
+      font-size: 28px;
     }
 
     .result-sub {
       font-size: 11px;
       color: var(--muted);
-      letter-spacing: 1px;
-    }
-
-    .rate-info {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 10px;
-      color: var(--muted);
-      padding-top: 4px;
-      border-top: 1px solid var(--border);
-      letter-spacing: 1px;
-    }
-
-    .rate-badge {
-      color: var(--gold);
-      font-size: 10px;
+      letter-spacing: 0.5px;
     }
 
     .convert-btn {
-      background: var(--gold);
+      background: var(--green);
       border: none;
-      border-radius: 3px;
-      color: #0a0a0f;
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
+      border-radius: 10px;
+      color: #fff;
+      font-family: 'Epilogue', sans-serif;
+      font-size: 12px;
       font-weight: 500;
-      letter-spacing: 3px;
+      letter-spacing: 2px;
       text-transform: uppercase;
-      padding: 16px;
+      padding: 15px;
       cursor: pointer;
       transition: all 0.2s;
       width: 100%;
     }
 
     .convert-btn:hover {
-      background: var(--gold-light);
+      background: var(--green-light);
       transform: translateY(-1px);
-      box-shadow: 0 8px 24px rgba(201,168,76,0.25);
+      box-shadow: 0 6px 20px rgba(45,106,79,0.25);
     }
 
     .convert-btn:active { transform: translateY(0); }
 
+    .rate-info {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.5px;
+      padding: 0 2px;
+    }
+
     .footer {
-      padding: 16px 36px;
+      padding: 14px 36px;
       border-top: 1px solid var(--border);
       font-size: 10px;
       color: var(--muted);
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
       display: flex;
       justify-content: space-between;
+      background: var(--surface2);
     }
 
     @keyframes pop {
       0% { transform: scale(1); }
-      50% { transform: scale(1.04); }
+      50% { transform: scale(1.03); }
       100% { transform: scale(1); }
     }
-
     .pop { animation: pop 0.3s ease; }
   </style>
 </head>
@@ -299,7 +290,7 @@
 
 <div class="card">
   <div class="header">
-    <div class="label">Exchange</div>
+    <div class="label">Exchange Rate</div>
     <h1>Currency<br>Converter</h1>
   </div>
 
@@ -312,9 +303,10 @@
       </div>
     </div>
 
-    <div style="display:flex; align-items:center; gap:10px;">
-      <div class="divider" style="flex:1">converts to</div>
+    <div class="swap-row">
+      <div class="divider"></div>
       <button class="swap-btn" onclick="swapCurrencies()" title="Swap currencies">⇅</button>
+      <div class="divider"></div>
     </div>
 
     <div class="field">
@@ -324,7 +316,7 @@
       </div>
     </div>
 
-    <div class="result-box" id="resultBox">
+    <div class="result-box empty" id="resultBox">
       <div class="result-amount" id="resultAmount">—</div>
       <div class="result-sub" id="resultSub">Press convert to calculate</div>
     </div>
@@ -333,44 +325,22 @@
 
     <div class="rate-info">
       <span id="rateText">—</span>
-      <span class="rate-badge" id="rateDate">—</span>
+      <span id="rateDate">—</span>
     </div>
   </div>
 
   <div class="footer">
-    <span>Live exchange rates</span>
+    <span>Exchange rates · Mar 2026</span>
     <span id="updateTime">—</span>
   </div>
 </div>
 
 <script>
-  // Hardcoded rates relative to USD (updated periodically)
   const rates = {
-    USD: 1,
-    EUR: 0.924,
-    GBP: 0.789,
-    JPY: 149.50,
-    CAD: 1.363,
-    AUD: 1.537,
-    CHF: 0.898,
-    CNY: 7.241,
-    INR: 83.12,
-    MXN: 17.15,
-    BRL: 4.97,
-    KRW: 1325.0,
-    SGD: 1.342,
-    HKD: 7.822,
-    NOK: 10.56,
-    SEK: 10.42,
-    DKK: 6.89,
-    NZD: 1.627,
-    ZAR: 18.63,
-    AED: 3.673,
-    THB: 35.10,
-    TRY: 30.85,
-    PLN: 3.987,
-    CZK: 22.85,
-    HUF: 356.0,
+    USD:1, EUR:0.924, GBP:0.789, JPY:149.50, CAD:1.363, AUD:1.537,
+    CHF:0.898, CNY:7.241, INR:83.12, MXN:17.15, BRL:4.97, KRW:1325.0,
+    SGD:1.342, HKD:7.822, NOK:10.56, SEK:10.42, DKK:6.89, NZD:1.627,
+    ZAR:18.63, AED:3.673, THB:35.10, TRY:30.85, PLN:3.987, CZK:22.85, HUF:356.0,
   };
 
   const symbols = {
@@ -396,10 +366,8 @@
     const to = document.getElementById('toCurrency');
     Object.keys(rates).forEach(code => {
       const sym = symbols[code] || '';
-      const opt1 = new Option(`${sym} ${code}`, code);
-      const opt2 = new Option(`${sym} ${code} — ${names[code]}`, code);
-      from.add(opt1);
-      to.add(opt2);
+      from.add(new Option(`${sym} ${code}`, code));
+      to.add(new Option(`${sym} ${code} — ${names[code]}`, code));
     });
     from.value = 'USD';
     to.value = 'EUR';
@@ -409,22 +377,20 @@
     const amount = parseFloat(document.getElementById('amount').value);
     const from = document.getElementById('fromCurrency').value;
     const to = document.getElementById('toCurrency').value;
+    const resultBox = document.getElementById('resultBox');
+    const resultEl = document.getElementById('resultAmount');
 
     if (isNaN(amount) || amount < 0) {
-      document.getElementById('resultAmount').textContent = '—';
+      resultEl.textContent = '—';
       document.getElementById('resultSub').textContent = 'Enter a valid amount';
+      resultBox.classList.add('empty');
       return;
     }
 
-    const inUSD = amount / rates[from];
-    const result = inUSD * rates[to];
+    const result = (amount / rates[from]) * rates[to];
     const rate = rates[to] / rates[from];
-
     const sym = symbols[to] || '';
     const fromSym = symbols[from] || '';
-
-    const resultBox = document.getElementById('resultBox');
-    const resultEl = document.getElementById('resultAmount');
 
     resultEl.textContent = `${sym}${result.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 4})}`;
     document.getElementById('resultSub').textContent = `${fromSym}${amount.toLocaleString()} ${from} → ${names[to]}`;
@@ -432,7 +398,7 @@
     document.getElementById('rateDate').textContent = 'Mar 2026';
     document.getElementById('updateTime').textContent = new Date().toLocaleTimeString();
 
-    resultBox.classList.add('has-result');
+    resultBox.classList.remove('empty');
     resultEl.classList.remove('pop');
     void resultEl.offsetWidth;
     resultEl.classList.add('pop');
@@ -453,7 +419,6 @@
 
   populateSelects();
   convert();
-
   document.getElementById('updateTime').textContent = new Date().toLocaleTimeString();
 </script>
 </body>
