@@ -60,7 +60,7 @@
       position: relative;
       height: clamp(150px, 38vw, 230px);
       overflow: hidden;
-      background: #1a1f2e;
+      background: #2a3040;
       border-bottom: 1px solid var(--border);
     }
 
@@ -75,28 +75,38 @@
       object-fit: cover; display: block;
     }
 
+    /* Placeholder while image loads */
+    .slide::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, #2a3a50 0%, #1a2535 100%);
+      z-index: 0;
+    }
+    .slide img { position: relative; z-index: 1; }
+
     .slide-caption {
       position: absolute; bottom: 0; left: 0; right: 0;
       padding: 30px 13px 9px;
-      background: linear-gradient(transparent, rgba(0,0,0,0.58));
+      background: linear-gradient(transparent, rgba(0,0,0,0.60));
       color: #fff;
       font-size: clamp(7px, 1.8vw, 10px);
       letter-spacing: 1.5px; text-transform: uppercase; font-weight: 500;
+      z-index: 2;
     }
 
     .slide-counter {
       position: absolute; top: 9px; left: 11px;
       font-family: 'Share Tech Mono', monospace;
       font-size: clamp(9px, 2vw, 11px);
-      color: rgba(255,255,255,0.75);
-      z-index: 2; letter-spacing: 1px;
-      text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+      color: rgba(255,255,255,0.80);
+      z-index: 3; letter-spacing: 1px;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.5);
     }
 
     .slide-dots {
       position: absolute; top: 9px; right: 10px;
       display: flex; flex-wrap: wrap; gap: 4px;
-      z-index: 2; max-width: 100px; justify-content: flex-end;
+      z-index: 3; max-width: 100px; justify-content: flex-end;
     }
     .slide-dot {
       width: 5px; height: 5px; border-radius: 50%;
@@ -108,8 +118,8 @@
 
     .slide-progress {
       position: absolute; bottom: 0; left: 0;
-      height: 2px; background: rgba(255,255,255,0.55);
-      width: 0%; z-index: 3;
+      height: 2px; background: rgba(255,255,255,0.6);
+      width: 0%; z-index: 4;
       transition: width 12s linear;
     }
     .slide-progress.running { width: 100%; }
@@ -155,9 +165,7 @@
       font-size: clamp(10px, 2.5vw, 13px);
       color: var(--muted); font-family: 'Share Tech Mono', monospace;
     }
-    .clock-date {
-      font-size: clamp(7px, 1.6vw, 9px); color: var(--muted);
-    }
+    .clock-date { font-size: clamp(7px, 1.6vw, 9px); color: var(--muted); }
 
     .clock-city-select {
       background: rgba(255,255,255,0.7);
@@ -171,7 +179,7 @@
       margin-top: 2px;
     }
 
-    /* ── Weather bar ── */
+    /* ── Weather ── */
     .weather-bar {
       background: linear-gradient(135deg, var(--sky-bg1) 0%, var(--sky-bg2) 100%);
       padding: clamp(10px, 2.5vw, 13px) clamp(11px, 3vw, 15px);
@@ -323,7 +331,7 @@
 <body>
 <div class="card">
 
-  <!-- California Coast Slideshow -->
+  <!-- Slideshow -->
   <div class="slideshow" id="slideshow">
     <div class="slide-counter" id="slideCounter">01 / 100</div>
     <div class="slide-dots" id="slideDots"></div>
@@ -485,135 +493,141 @@
 </div>
 
 <script>
-/* ═══════════════════════════════════════════
-   SLIDESHOW — 100 California Central Coast
-   images via Unsplash (free, no key needed)
-═══════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════
+   SLIDESHOW
+   Uses Unsplash Source API — free, no API key, hotlink OK.
+   Each URL fetches a different random photo matching the
+   search term. The ?sig= param ensures variety across slots.
+═══════════════════════════════════════════════════════ */
 const SLIDES = [
-  { id:'G85VuTpw6jg', cap:'Bixby Creek Bridge · Big Sur' },
-  { id:'1braZySlEKA', cap:'Big Sur Coastline · California' },
-  { id:'YZ7Ry-RqTBI', cap:'McWay Falls · Big Sur' },
-  { id:'jph4aeEBp2M', cap:'Pacific Coast · Big Sur' },
-  { id:'RFgO6TBE25A', cap:'Big Sur Cliffs · California' },
-  { id:'Bkci_8qcdvQ', cap:'Sunset at Big Sur' },
-  { id:'NuE8Nu3otjo', cap:'Big Sur Wilderness' },
-  { id:'XOhI_kHsZaA', cap:'Pfeiffer Beach · Big Sur' },
-  { id:'pN4pMRIg1jQ', cap:'Big Sur Morning Light' },
-  { id:'iuqmGmst5Po', cap:'Highway 1 · Big Sur' },
-  { id:'KABfjuSOx74', cap:'Morro Rock · Morro Bay' },
-  { id:'8sOZJ8JF0S8', cap:'Morro Bay Harbor at Dawn' },
-  { id:'UOwvwZ9Dy6w', cap:'Morro Strand State Beach' },
-  { id:'b4shfboZoYs', cap:'Cayucos Beach · SLO County' },
-  { id:'sStoVDCnH24', cap:'Avila Beach · San Luis Obispo' },
-  { id:'JTwil4HXuGM', cap:'Pismo Beach Dunes' },
-  { id:'pq3XM6LPRNA', cap:'Shell Beach · Pismo' },
-  { id:'Mnk6gMtTGNc', cap:'San Simeon Pier · Central Coast' },
-  { id:'Gj-5N0Iuf28', cap:'Montana de Oro State Park' },
-  { id:'Fo8fpPmCCdo', cap:'Los Osos · Morro Bay' },
-  { id:'xrVcDiCGkb8', cap:'Moonstone Beach · Cambria' },
-  { id:'542Z2ftkKqc', cap:'Cambria Boardwalk Sunset' },
-  { id:'FiMT9eTHAMg', cap:'Hearst Castle · San Simeon' },
-  { id:'oV3zTK7vuP0', cap:'Elephant Seals · San Simeon' },
-  { id:'V4PEh9EvBUQ', cap:'Cambria Pines · California' },
-  { id:'CUiSMmWriTo', cap:'Carmel-by-the-Sea Beach' },
-  { id:'SXMRJt5UVdQ', cap:'Point Lobos · Carmel' },
-  { id:'HMWE4E5G3Ik', cap:'17-Mile Drive · Pebble Beach' },
-  { id:'bVzMaGjHelf', cap:'Monterey Bay at Dusk' },
-  { id:'jLVEBjGTHy0', cap:'Pacific Grove Tidepools' },
-  { id:'0Z5AB9HaRpI', cap:'Monterey Cypress Trees' },
-  { id:'qmDJhEBxrRk', cap:'Asilomar Beach · Pacific Grove' },
-  { id:'YiRQIglwYig', cap:'Garrapata State Park · Carmel' },
-  { id:'eWFdPGWmHFY', cap:'Point Sur Lighthouse' },
-  { id:'p2TQ-3Bh3Oo', cap:'Carmel River Beach' },
-  { id:'6ywyo2qtaZ8', cap:'Pacific Ocean Sunset · California' },
-  { id:'yQorCngxzwI', cap:'California Coastal Sunset' },
-  { id:'HkN64BISuAA', cap:'Waves at Dusk · Central Coast' },
-  { id:'IYfp2Ixe9nM', cap:'Golden Hour · Pacific Coast' },
-  { id:'Ikwl2hRwbpY', cap:'Dramatic Sunset · California' },
-  { id:'32Ik9kVJXME', cap:'Orange Skies · Central Coast' },
-  { id:'qMehmIyaXvY', cap:'Pacific Twilight · California' },
-  { id:'JgOeRuGD_Y4', cap:'Coastal Glow · Central Coast' },
-  { id:'cNDGZ2sQ3Bo', cap:'Evening Light · Pacific Coast' },
-  { id:'CwkiN6_qpDU', cap:'Fire Sunset · California Coast' },
-  { id:'SoC1ex9o4Oo', cap:'Sea Cliffs · Central California' },
-  { id:'HoevDVHxBAN', cap:'Rugged Coastline · Big Sur' },
-  { id:'nXt5HtLmlgE', cap:'Ocean Spray · California Coast' },
-  { id:'P9rQDRfbDN4', cap:'Dramatic Cliffs · Pacific Coast' },
-  { id:'N7XodC4Vt0k', cap:'Sea Otters · Monterey Bay' },
-  { id:'YcMKS_oBHUc', cap:'Pelicans · Morro Bay' },
-  { id:'k53exQRaRBk', cap:'Harbor Seals · Central Coast' },
-  { id:'ueHRkd2Tp8M', cap:'California Sea Lions' },
-  { id:'T_WBFNpkFYo', cap:'Tide Pools · Central Coast' },
-  { id:'2JTqc5BBhd4', cap:'Rocky Shore · California' },
-  { id:'G-AEBuaFcOA', cap:'Wildflowers · Central Coast Hills' },
-  { id:'a7aN_UlJLqQ', cap:'Lupine Blooms · Carrizo Plain' },
-  { id:'Z9arfr0f5zc', cap:'Rolling Hills · San Luis Obispo' },
-  { id:'xsGxpcguROc', cap:'Spring Green · Central Coast' },
-  { id:'LpbyDENbQQg', cap:'California Oaks · Paso Robles' },
-  { id:'i_MCmTNGbmA', cap:'Oak Woodland · SLO County' },
-  { id:'sPKMBBzNgqU', cap:'Vineyard · Paso Robles Wine Country' },
-  { id:'PLwrHQACqaU', cap:'Wine Country · Central Coast' },
-  { id:'yBzrPGLjMQw', cap:'Eucalyptus Grove · Santa Cruz' },
-  { id:'zXNC_lBBVys', cap:'Monarch Butterfly · Pismo Beach' },
-  { id:'fIq0tET6llY', cap:'Natural Bridges · Santa Cruz' },
-  { id:'Qy-CBKUg_X8', cap:'Santa Cruz Boardwalk' },
-  { id:'rI7pTRBBXqo', cap:'Pigeon Point Lighthouse' },
-  { id:'A_tPBct4tz8', cap:'Año Nuevo State Park' },
-  { id:'KZv7w34tluA', cap:'Davenport Beach · Santa Cruz' },
-  { id:'y9TCCgo6eW8', cap:'Wilder Ranch · Santa Cruz' },
-  { id:'Oja2ty_9ZLM', cap:'Seabright Beach · Santa Cruz' },
-  { id:'hXOFtHuRz9s', cap:'Sea Fog · Central Coast' },
-  { id:'h0Vxgz5tyXA', cap:'Morning Mist · Big Sur' },
-  { id:'l090uFWoPaI', cap:'Coastal Redwoods · Santa Cruz' },
-  { id:'SYOfHDfRcds', cap:'Pacific Fog Bank · California' },
-  { id:'26MqddMT2SU', cap:'Night Sky · Central Coast' },
-  { id:'YgYBiXMOWWI', cap:'Milky Way · Big Sur' },
-  { id:'w33-zg-dNL4', cap:'Starry Night · Pacific Coast' },
-  { id:'P_B6HTSCBxs', cap:'Full Moon · Morro Bay' },
-  { id:'HoaCMESBlio', cap:'Drone View · California Coastline' },
-  { id:'CmF_5GYc6c0', cap:'Aerial · Big Sur' },
-  { id:'TDolFMgFcXA', cap:'Coast from Above · Central CA' },
-  { id:'Z7pyclMkzG8', cap:'Kayaking · Morro Bay Estuary' },
-  { id:'gLdJnQFcIXE', cap:'Surfer · Cayucos Beach' },
-  { id:'v3-zcCWMjgM', cap:'Surfing · Central Coast' },
-  { id:'CovRmkjv1RE', cap:'Fishing Pier · Avila Beach' },
-  { id:'WLxQvbMyfas', cap:'Beach Campfire · Central Coast' },
-  { id:'OgcJIKRnRC8', cap:'Driftwood · Moonstone Beach' },
-  { id:'mYGDabkQ5Tg', cap:'Glass Beach · Fort Bragg' },
-  { id:'Cx-LstGgyCY', cap:'Rocky Cove · Central Coast' },
-  { id:'uCMKx2H1Y38', cap:'Tidal Pools · Fitzgerald Marine' },
-  { id:'xCI_M0YZuMo', cap:'Kelp Forest · Monterey Bay' },
-  { id:'h5QaC4OKPHY', cap:'Point Reyes · North Coast' },
-  { id:'4Zaq3wRHbHo', cap:'Estero Bluffs · Cayucos' },
-  { id:'qtdgOHKALHg', cap:'White Water · Central Coast' },
-  { id:'AQl-J19ocWE', cap:'Coastal Bluffs · Montana de Oro' },
-  { id:'4dpAqfTbvKA', cap:'Rugged Pacific · Big Sur South' },
-  { id:'542Z2ftkKqc', cap:'Cambria at Golden Hour' },
+  { q:'big+sur+california+coast',           cap:'Big Sur · California Coast' },
+  { q:'bixby+bridge+big+sur',               cap:'Bixby Creek Bridge · Big Sur' },
+  { q:'mcway+falls+big+sur',                cap:'McWay Falls · Julia Pfeiffer Burns' },
+  { q:'pfeiffer+beach+big+sur',             cap:'Pfeiffer Beach · Big Sur' },
+  { q:'highway+1+california+coast',         cap:'Pacific Coast Highway · California' },
+  { q:'point+sur+lighthouse+california',    cap:'Point Sur Lighthouse · Big Sur' },
+  { q:'garrapata+state+park+california',    cap:'Garrapata State Park · Carmel' },
+  { q:'julia+pfeiffer+burns+state+park',    cap:'Julia Pfeiffer Burns State Park' },
+  { q:'andrew+molera+state+park',           cap:'Andrew Molera State Park · Big Sur' },
+  { q:'big+sur+sunset+coast',               cap:'Big Sur Sunset · California' },
+  { q:'morro+rock+california',              cap:'Morro Rock · Morro Bay' },
+  { q:'morro+bay+harbor+california',        cap:'Morro Bay Harbor' },
+  { q:'morro+bay+sunset+california',        cap:'Morro Bay Sunset · Central Coast' },
+  { q:'montana+de+oro+state+park',          cap:'Montana de Oro · SLO County' },
+  { q:'cayucos+beach+california',           cap:'Cayucos Beach · SLO County' },
+  { q:'avila+beach+california',             cap:'Avila Beach · San Luis Obispo' },
+  { q:'pismo+beach+california',             cap:'Pismo Beach · Central Coast' },
+  { q:'shell+beach+california',             cap:'Shell Beach · SLO County' },
+  { q:'san+simeon+california+coast',        cap:'San Simeon · Central Coast' },
+  { q:'hearst+castle+california',           cap:'Hearst Castle · San Simeon' },
+  { q:'moonstone+beach+cambria+california', cap:'Moonstone Beach · Cambria' },
+  { q:'cambria+california+coast',           cap:'Cambria · Central Coast' },
+  { q:'elephant+seals+san+simeon',          cap:'Elephant Seals · San Simeon' },
+  { q:'piedras+blancas+lighthouse',         cap:'Piedras Blancas Lighthouse · CA' },
+  { q:'paso+robles+vineyard+california',    cap:'Paso Robles Vineyard · Central Coast' },
+  { q:'carmel+by+the+sea+beach',            cap:'Carmel-by-the-Sea Beach' },
+  { q:'point+lobos+state+park+california',  cap:'Point Lobos State Park · Carmel' },
+  { q:'17+mile+drive+pebble+beach',         cap:'17-Mile Drive · Pebble Beach' },
+  { q:'monterey+bay+california',            cap:'Monterey Bay · California' },
+  { q:'pacific+grove+tidepools',            cap:'Pacific Grove Tidepools' },
+  { q:'monterey+cypress+tree+california',   cap:'Lone Cypress · Pebble Beach' },
+  { q:'asilomar+beach+pacific+grove',       cap:'Asilomar Beach · Pacific Grove' },
+  { q:'carmel+river+beach+california',      cap:'Carmel River Beach' },
+  { q:'monterey+wharf+california',          cap:'Fisherman\'s Wharf · Monterey' },
+  { q:'sea+otter+monterey+bay',             cap:'Sea Otter · Monterey Bay' },
+  { q:'santa+cruz+natural+bridges',         cap:'Natural Bridges State Beach · SC' },
+  { q:'santa+cruz+beach+boardwalk',         cap:'Santa Cruz Boardwalk' },
+  { q:'pigeon+point+lighthouse+california', cap:'Pigeon Point Lighthouse' },
+  { q:'davenport+beach+california',         cap:'Davenport Beach · Santa Cruz' },
+  { q:'ano+nuevo+state+park+elephant+seal', cap:'Año Nuevo State Park' },
+  { q:'california+coast+sunset+orange',     cap:'Pacific Sunset · California' },
+  { q:'california+coast+golden+hour',       cap:'Golden Hour · Pacific Coast' },
+  { q:'california+coast+waves+cliffs',      cap:'Coastal Cliffs · California' },
+  { q:'pacific+ocean+dramatic+sunset',      cap:'Dramatic Sunset · Pacific Ocean' },
+  { q:'california+coast+fog+morning',       cap:'Morning Fog · Central Coast' },
+  { q:'california+ocean+rocky+shore',       cap:'Rocky Shore · California' },
+  { q:'california+tide+pools+coast',        cap:'Tide Pools · Central Coast' },
+  { q:'california+coast+wildflowers',       cap:'Coastal Wildflowers · California' },
+  { q:'california+hills+spring+green',      cap:'Spring Hills · Central Coast' },
+  { q:'california+coast+aerial+view',       cap:'Aerial View · California Coastline' },
+  { q:'big+sur+aerial+drone+coast',         cap:'Big Sur from Above' },
+  { q:'california+coast+blue+water',        cap:'Pacific Blue · Central Coast' },
+  { q:'surfing+california+central+coast',   cap:'Surfing · Central Coast' },
+  { q:'california+pelican+ocean',           cap:'Pelicans · California Coast' },
+  { q:'harbor+seals+california+coast',      cap:'Harbor Seals · Central Coast' },
+  { q:'california+sea+lion+rocks',          cap:'Sea Lions · California Coast' },
+  { q:'monarch+butterfly+grove+california', cap:'Monarch Butterflies · Pismo Beach' },
+  { q:'california+coast+driftwood+beach',   cap:'Driftwood · Moonstone Beach' },
+  { q:'california+coast+camping+fire',      cap:'Beach Campfire · Central Coast' },
+  { q:'kayak+california+coast',             cap:'Kayaking · California Coast' },
+  { q:'california+coast+fishing+pier',      cap:'Fishing Pier · Central Coast' },
+  { q:'big+sur+waterfall+ocean',            cap:'Waterfall to Sea · Big Sur' },
+  { q:'california+coast+night+stars',       cap:'Starry Night · Big Sur' },
+  { q:'milky+way+california+coast',         cap:'Milky Way · Big Sur' },
+  { q:'full+moon+ocean+california',         cap:'Moonrise · Pacific Coast' },
+  { q:'california+coast+storm+waves',       cap:'Storm Waves · Central Coast' },
+  { q:'california+coast+sea+stack',         cap:'Sea Stacks · Central Coast' },
+  { q:'california+coast+sandstone+cliffs',  cap:'Sandstone Cliffs · California' },
+  { q:'california+redwoods+coast',          cap:'Coastal Redwoods · Big Sur' },
+  { q:'big+sur+forest+ocean',               cap:'Forest meets Ocean · Big Sur' },
+  { q:'california+coast+kelp+forest',       cap:'Kelp Forest · Monterey Bay' },
+  { q:'gray+whale+california+coast',        cap:'Gray Whales · Central Coast' },
+  { q:'california+coast+lupine+flowers',    cap:'Lupine · Central Coast Hills' },
+  { q:'carrizo+plain+california',           cap:'Carrizo Plain · Central California' },
+  { q:'california+oak+trees+hills',         cap:'Oak Woodland · SLO County' },
+  { q:'los+padres+national+forest',         cap:'Los Padres National Forest' },
+  { q:'morro+bay+estuary+birds',            cap:'Morro Bay Estuary' },
+  { q:'california+coast+pelican+fly',       cap:'Pelicans in Flight · Morro Bay' },
+  { q:'california+coast+black+white',       cap:'Pacific Coast · Classic View' },
+  { q:'big+sur+purple+sunset+coast',        cap:'Purple Sunset · Big Sur' },
+  { q:'california+coast+sea+glass',         cap:'Sea Glass Beach · Fort Bragg' },
+  { q:'california+coast+sand+dunes',        cap:'Sand Dunes · Oceano' },
+  { q:'morro+bay+fishing+boats',            cap:'Fishing Fleet · Morro Bay' },
+  { q:'california+central+coast+ranch',     cap:'Coastal Ranch · SLO County' },
+  { q:'california+coast+winter+storm',      cap:'Winter Storm · Big Sur' },
+  { q:'california+coast+spring+bloom',      cap:'Spring Bloom · Central Coast' },
+  { q:'big+sur+fog+valley',                 cap:'Fog in the Valley · Big Sur' },
+  { q:'california+coast+sunset+silhouette', cap:'Silhouette Sunset · California' },
+  { q:'pacific+coast+highway+drive',        cap:'Pacific Coast Drive · California' },
+  { q:'california+coast+turquoise+water',   cap:'Turquoise Waters · Central Coast' },
+  { q:'point+reyes+california+coast',       cap:'Point Reyes · North Coast' },
+  { q:'california+coast+hiker+trail',       cap:'Coastal Trail · California' },
+  { q:'california+coast+sunrise+pink',      cap:'Pink Sunrise · Pacific Coast' },
+  { q:'big+sur+coast+long+exposure',        cap:'Long Exposure · Big Sur' },
+  { q:'california+central+coast+vineyard+sunset', cap:'Vineyard Sunset · Central Coast' },
+  { q:'california+coast+lighthouse+sunset', cap:'Lighthouse at Sunset · California' },
+  { q:'estero+bluffs+cayucos+california',   cap:'Estero Bluffs · Cayucos' },
+  { q:'san+luis+obispo+county+coast',       cap:'SLO County Coastline' },
 ];
 
-const total = SLIDES.length;
+const total = SLIDES.length; // 100
 let currentSlide = 0;
 
-const slideshowEl  = document.getElementById('slideshow');
-const dotsEl       = document.getElementById('slideDots');
-const progressEl   = document.getElementById('slideProgress');
-const counterEl    = document.getElementById('slideCounter');
+const slideshowEl = document.getElementById('slideshow');
+const dotsEl      = document.getElementById('slideDots');
+const progressEl  = document.getElementById('slideProgress');
+const counterEl   = document.getElementById('slideCounter');
 
-// Build slides
+// Build all slides
 SLIDES.forEach((s, i) => {
   const div = document.createElement('div');
   div.className = 'slide' + (i === 0 ? ' active' : '');
+
+  // Unsplash Source API: free, no auth, returns a redirect to a real image.
+  // ?sig=N ensures each slot gets a different image even with the same query.
+  const src = `https://source.unsplash.com/800x500/?${s.q}&sig=${i}`;
+
   div.innerHTML = `
-    <img src="https://images.unsplash.com/photo-${s.id}?w=800&q=75&fit=crop"
-         alt="${s.cap}" loading="${i < 3 ? 'eager' : 'lazy'}">
+    <img src="${src}" alt="${s.cap}" loading="${i < 3 ? 'eager' : 'lazy'}"
+         onerror="this.parentElement.style.background='linear-gradient(135deg,#2a3a50,#1a2535)'">
     <div class="slide-caption">${s.cap}</div>`;
   slideshowEl.insertBefore(div, dotsEl);
 
-  // Only show first 10 as dots (stays clean on mobile)
+  // Render dots for first 10 only (keeps UI clean on all screen sizes)
   if (i < 10) {
     const dot = document.createElement('button');
     dot.className = 'slide-dot' + (i === 0 ? ' active' : '');
-    dot.setAttribute('aria-label', 'Slide ' + (i + 1));
+    dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
     dot.onclick = () => goToSlide(i);
     dotsEl.appendChild(dot);
   }
@@ -635,11 +649,11 @@ function goToSlide(n) {
     String(currentSlide + 1).padStart(2, '0') + ' / ' +
     String(total).padStart(3, '0');
 
-  // Restart progress bar
+  // Restart the progress bar
   progressEl.style.transition = 'none';
   progressEl.classList.remove('running');
   progressEl.style.width = '0%';
-  void progressEl.offsetWidth; // reflow
+  void progressEl.offsetWidth;
   progressEl.style.transition = 'width 12s linear';
   progressEl.classList.add('running');
 }
@@ -654,10 +668,9 @@ setInterval(() => goToSlide(currentSlide + 1), 12000);
 const clockIntervals = {};
 
 function updateClock(n) {
-  const sel  = document.getElementById(`clock${n}City`);
+  const sel = document.getElementById(`clock${n}City`);
   const [city, tz] = sel.value.split('|');
   document.getElementById(`clock${n}CityName`).textContent = city;
-
   if (clockIntervals[n]) clearInterval(clockIntervals[n]);
 
   const tick = () => {
@@ -699,15 +712,11 @@ function setUnit(u) {
   document.getElementById('btnF').classList.toggle('active', u === 'F');
   updateTempDisplay();
 }
-
 function updateTempDisplay() {
   if (lastTempC === null) return;
-  document.getElementById('wTemp').textContent = unit === 'C'
-    ? `${lastTempC.toFixed(1)}°C` : `${toF(lastTempC)}°F`;
-  document.getElementById('wHigh').textContent = unit === 'C'
-    ? `High: ${lastHighC.toFixed(1)}°C` : `High: ${toF(lastHighC)}°F`;
+  document.getElementById('wTemp').textContent = unit === 'C' ? `${lastTempC.toFixed(1)}°C` : `${toF(lastTempC)}°F`;
+  document.getElementById('wHigh').textContent = unit === 'C' ? `High: ${lastHighC.toFixed(1)}°C` : `High: ${toF(lastHighC)}°F`;
 }
-
 async function loadWeather() {
   const [city, lat, lon] = document.getElementById('weatherCity').value.split('|');
   document.getElementById('wCond').textContent = 'Loading...';
@@ -762,9 +771,8 @@ function populateSelects() {
   const from = document.getElementById('fromCurrency');
   const to   = document.getElementById('toCurrency');
   Object.keys(rates).forEach(code => {
-    const sym = symbols[code] || '';
-    from.add(new Option(`${sym} ${code}`, code));
-    to.add(new Option(`${sym} ${code} — ${names[code]}`, code));
+    from.add(new Option(`${symbols[code]} ${code}`, code));
+    to.add(new Option(`${symbols[code]} ${code} — ${names[code]}`, code));
   });
   from.value = 'USD'; to.value = 'EUR';
 }
@@ -775,7 +783,6 @@ function convert() {
   const to     = document.getElementById('toCurrency').value;
   const box    = document.getElementById('resultBox');
   const el     = document.getElementById('resultAmount');
-
   if (isNaN(amount) || amount < 0) {
     el.textContent = '—';
     document.getElementById('resultSub').textContent = 'Enter a valid amount';
@@ -785,10 +792,9 @@ function convert() {
   const rate   = rates[to] / rates[from];
   el.textContent = `${symbols[to]}${result.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:4})}`;
   document.getElementById('resultSub').textContent = `${symbols[from]}${amount.toLocaleString()} ${from} → ${names[to]}`;
-  document.getElementById('rateText').textContent   = `1 ${from} = ${rate.toFixed(4)} ${to}`;
-  document.getElementById('rateDate').textContent   = 'Mar 2026';
-  document.getElementById('updateTime').textContent  = new Date().toLocaleTimeString();
-
+  document.getElementById('rateText').textContent  = `1 ${from} = ${rate.toFixed(4)} ${to}`;
+  document.getElementById('rateDate').textContent  = 'Mar 2026';
+  document.getElementById('updateTime').textContent = new Date().toLocaleTimeString();
   box.classList.remove('empty');
   el.classList.remove('pop');
   void el.offsetWidth;
@@ -806,7 +812,7 @@ document.getElementById('amount').addEventListener('keydown', e => {
   if (e.key === 'Enter') convert();
 });
 
-// ── Init ──
+// Init
 populateSelects();
 convert();
 loadWeather();
